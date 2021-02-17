@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+  <head>
+    <title>Login</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../css/css.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  
+  	<style type="text/css">
+  	
+  	</style>
+  </head>
+  <body>
+
+<th:block th:include="/common/_header"></th:block>  
+
+<article style="text-align: center;padding: 30px;">
+    <div class="form-aside">
+        <div class="form-title">Log In</div>
+        <div>
+            <form style="padding:20px;" th:action="@{/login}" method="post" onsubmit="return checkValidated()">
+                <div class="form-group">
+                	<br>
+                    <input id="username" class="form-control" type="text" name="username" value="" placeholder="Username">
+                    <p><small id="warningUsername" class="text-danger"><br></small></p>
+                </div>
+                <div class="form-group">
+                    <input id="password" class="form-control" type="password" name="password" value="" placeholder="Password">
+                    <p><small id="warningPassword" class="text-danger"><br></small></p>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" name="role" id="role">
+                        <option value="admin">Admin</option>
+                        <option value="trainee">Trainee</option>
+                        <option value="trainer">Trainer</option>
+                    </select>
+                </div>
+                <div class="form-group form-check" style="text-align: left;">
+                    <input type="checkbox" class="form-check-input" name="isRemember" id="check">
+                    <label class="form-check-label" for="check">Remember Password</label>
+                </div>
+                 <br>
+                <button type="submit" style="background-color: darkorange;color:white" class="btn btn-default">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    	<div class="modal fade" id="myModal">
+	    	<div class="modal-dialog modal-dialog-centered">
+	     		<div class="modal-content">
+		     		<div class="modal-body">
+		     			<div style="margin: 20px 0;">
+		     				<img width="20%" src="https://www.flaticon.com/svg/static/icons/svg/972/972545.svg">
+		     			</div>
+			    		<div style="margin: 30px 0;">
+			    			<p style="font-size: 20px;" th:text="#{message.login.fail}"></p>
+			    		</div>
+			    		<div>
+			    			<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+			    		</div>
+			    	</div>
+	     		</div>
+	     	</div>
+	    </div>
+	</article>
+	
+	<th:block th:include="/common/_footer"></th:block>  
+	
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://raw.githubusercontent.com/suhaibkhan/messageResource.js/master/dist/messageResource.js"></script>
+  	<script type="text/javascript">
+  		var checkValidated = function() {
+  			var username = $('#username').val();
+  			var password = $('#password').val();
+  			
+  			var flagUsername = false;
+  			var flagPassword = false;
+  			
+  			if (username.trim().length === 0) {
+  				flagUsername = false;
+  				$('#warningUsername').text('[[#{message.login.username.notnull}]]');
+  			} else {
+  				if (username.match(/\s/) !== null) {
+  					flagUsername = false;
+  					$('#warningUsername').text('[[#{message.login.username.noblank}]]');
+  				} else {
+  					flagUsername = true;
+  	  				$('#warningUsername').text('');
+  	  				$('#warningUsername').html('<br>');
+  				}
+  			}
+  			
+  			if (password.trim().length === 0) {
+  				flagPassword = false;
+  				$('#warningPassword').text('[[#{message.login.password.notnull}]]');
+  			} else {
+  			    if (password.match(/\s/) !== null) {
+  					flagPassword = false;
+  					$('#warningPassword').text('[[#{message.login.password.noblank}]]');
+  				} else {
+  					flagPassword = true;
+  	  				$('#warningPassword').text('');
+  				    $('#warningPassword').html('<br>');
+  				}
+  			}
+
+  			if (flagUsername && flagPassword) {
+  				return true;
+  			} else {
+  				return false;
+  			}
+  		}
+  	</script>
+  	<script type="text/javascript" th:if="${failLogin}">
+  		$('#myModal').modal('show');
+  	</script>
+  </body>
+</html>

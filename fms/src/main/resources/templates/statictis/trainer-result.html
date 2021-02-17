@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Title</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="../css/css.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<!--sweet alert-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script type="text/javascript" src="../css/javascript.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Chart-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>    
+<script type="text/javascript">
+   google.charts.load('current', {packages: ['corechart']});  
+</script>
+</head>
+<body>
+
+	<th:block th:include="/common/_header"></th:block>
+	<article style="padding: 15px;">
+		<div style="margin: auto; width: 80%">
+
+			<div class="row">
+				<span class="col-md-1"><b>Class:</b></span><br> 
+				<select onchange="selected(this)" id="clasz"
+					class="col-2 browser-default custom-select" style="width: 3in;">
+					<option id="class" value="">Class</option>
+					<option th:each="clas : ${classs}" 
+						th:text="${clas.className}" th:value="${clas.classID}"></option>
+				</select> 
+				<span class="col-md-1"><b>Module:</b></span><br> 
+				<select onchange="selected1(this)" id="modulez"
+					class="col-2 browser-default custom-select" style="width: 3in;">
+					<option id="module" value="">Module</option>
+					<option th:each="module : ${modules}"
+						th:text="${module.moduleName}" th:value="${module.moduleID}"></option>
+				</select>
+
+				<div>
+					<th:block th:if="${session.USER.role == 'admin'}">
+						<button class="button btn btn-default" id="viewStatisticOverview">Show Overview</button>
+						<button class="button btn btn-default" id="viewStatisticDetail">Show Detail</button>
+					</th:block>
+					<th:block th:if="${session.USER.role == 'trainer'}">
+						<button class="button btn btn-default" id="viewStatisticOverview">Show Overview</button>
+						<button class="button btn btn-default" id="viewStatisticDetail">Show Detail</button>
+					</th:block>
+				</div>
+			</div>
+			<!--detail-->
+			<div id="detail" style="display:none">
+				<th:block th:if="${session.USER.role == 'trainer'}">
+					<span><h4 style="margin-left: 20%; text-align: center">
+							FEEDBACK RESULT
+							<a href="/trainer/Comment" style="float: right; margin-right: 2in;">
+								<button class="button btn btn-default">View Comment</button>
+							</a></h4> 
+					</span>
+					<br>
+				</th:block>
+				<th:block th:if="${session.USER.role == 'admin'}">
+					<span><h4 style="margin-left: 20%; text-align: center;">
+							FEEDBACK RESULT
+							<a href="/admin/Comment" style="float: right; margin-right: 2in;">
+								<button class="button btn btn-default">View Comment</button>
+							</a></h4> 
+					</span>
+					<br>
+				</th:block>
+				<span><b>Title: </b><b style="color: red"
+					th:each="feedback : ${feedbacks}" th:text="${feedback.title}"
+					th:if="${feedback.feedbackID <= 1}"> FeedBack 1</b></span><br>
+				<div style="margin-bottom: 0.5in">
+					<span style="text-align: center;"><h5>LESSON EVALUATION</h5></span><br>
+				</div>
+
+				<div class="detail">
+					<div>
+						<h4>
+							<b>DETAIl EVALUATION</b>
+						</h4>  
+						<table class="table">
+							<thead>
+								<th>Details</th>
+								<th>Strongly Disagree</th>
+								<th>Disagree</th>
+								<th>Neutral</th>
+								<th>Agree</th>
+								<th>Strongly Agree</th>
+							</thead>
+							<tbody id="test">
+							</tbody>
+							<tfoot >
+								<tr id="totalColor" class="total-all" style="font-weight: bold; color: red">
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Chart-->  
+		    <div id="ketqua" style="display:none">
+		        <div class="chart">
+		            <span ><h4>FEEDBACK STATISTIC OF Class: <i><input id="show_class" style="border:none" readonly></i></h4></span><br>
+		            <span ><h4>FEEDBACK STATISTIC OF Module: <i><input id="show_module" style="border:none" readonly></i></h4></span><br>
+		
+		            <div  id="chart"></div> 
+		        </div>
+		        	 <span><h4>STATISTIC BY TOPIC</h4></span><br>
+		         <div class="row">   
+			         <div class="col-3" id="topic1"></div>
+			         <div class="col-3" id="topic2"></div>
+			         <div class="col-3" id="topic3"></div>
+			         <div class="col-3" id="topic4"></div>
+		         </div>  
+		    </div>   
+		</div>
+		<div hidden="">
+        	<li th:each="question : ${questions}" class="questionz" th:value="${question.questionID}" th:text="${question.questionContent}"></li>
+        	<li th:each="topic : ${topics}" class="topic" th:value="${topic.topicName}" th:text="${topic.topicName}"></li>
+        	<li th:each="topic1 : ${topics}" class="topicz" th:value="${topic1.topicID}" th:text="${topic1.topicID}"></li>
+       	</div> 
+	</article>
+	<th:block th:include="/common/_footer"></th:block>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css"
+		href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+	<script type="text/javascript">
+		var s="";
+	   $('#viewStatisticDetail').on('click', () => {
+	        var topic = [];
+	        var topicID=1;
+	        var clasz = $('#clasz').val();
+	        var modulez = $('#modulez').val();
+	        var url = '/api/statistic/question';
+	        var a="";
+	        var b="";
+	        var topicz=[];
+	        var questionz = [];
+	        var total="";
+	        			
+        	$.get(url,function(data,status){
+        		for(var i=0;i<$('.topic').length;i++){
+        			if(document.getElementsByClassName("topic")[i] != null){
+        				a=document.getElementsByClassName("topic")[i].innerText;
+        				b=document.getElementsByClassName("topicz")[i].innerText;
+        			}
+        					 
+        			topicz.push(b);
+        			topic.push(a);
+        					
+        		}
+        		console.log(topicz,topic);
+            			
+        		for(var i =0;i<$('.topic').length;i++){
+        			getStatisticDetailTopicByClassAndModule1(topicz[i], clasz, modulez);
+             			total=total+
+            			`<tr>
+	            			<td style="font-weight: bold">`+topic[i]+`</td>
+	            			<td class="topicPre`+topicz[i]+`" style="font-weight: bold"></td>
+	            			<td class="topicPre`+topicz[i]+`" style="font-weight: bold"></td>
+	            			<td class="topicPre`+topicz[i]+`" style="font-weight: bold"></td>
+	            			<td class="topicPre`+topicz[i]+`" style="font-weight: bold"></td>
+	            			<td class="topicPre`+topicz[i]+`" style="font-weight: bold"></td>
+            			</tr>
+            			`;
+            			for(var a =0;a<data.length;a++){
+            			getStatisticDetailQByClassAndModule1(data[a][2],clasz,modulez);
+        				if(topic[i]==data[a][1]){
+        					total=total+
+                				`
+                				<tr>
+            						<td>`+data[a][0]+`</td>
+            						<td class="questionPre`+data[a][2]+`"></td>
+                    				<td class="questionPre`+data[a][2]+`"></td>
+                    				<td class="questionPre`+data[a][2]+`"></td>
+                    				<td class="questionPre`+data[a][2]+`"></td>
+                    				<td class="questionPre`+data[a][2]+`"></td>
+                				</tr>
+                				`;
+                					
+        						};
+        					};
+        				};
+        				document.querySelector("#test").innerHTML=total;
+        			});
+	        		
+	        		getStatisticDetailByClassAndModule(clasz, modulez);
+	        		
+	        		$('#detail').show();
+					$('#ketqua').hide();
+	        });
+    </script>
+    
+    <script type="text/javascript">
+        		function getStatisticDetailByClassAndModule(clasz, modulez) {
+        			
+        			var url = '/api/statistic/statisticDetail?classID=' + clasz + '&moduleID=' + modulez;
+        			$.get(url,function(data,status){
+        				console.log(data,data[0][0]);
+        				var total="";
+        				for(var i =0;i<data.length;i++){
+        					var total=total+
+        					`
+        						<td>`+data[i][0]+`</td>
+        					`;
+        				};
+        				document.querySelector("#totalColor").innerHTML=`<td style="font-weight: bold; color: black; text-align:right">Total</td>`+total;
+        			})
+        		}
+      </script>
+        
+         <!--  topic -->
+       <script type="text/javascript">
+        		function getStatisticDetailQByClassAndModule1(questionID, clasz, modulez) {
+        			
+        			var url = '/api/statistic/statisticDetail2?questionID='+questionID+'&classID=' + clasz + '&moduleID=' + modulez;
+        			$.get(url,function(data,status){
+        				
+        				var s2="";
+        				for(var i =0;i<data.length+100;i++){
+        					if(i < data.length )
+    						{
+        						s2=`<td>`+data[i][0]+`</td>`;
+        						if(document.getElementsByClassName("questionPre"+questionID)[i] != null){
+    	    						document.getElementsByClassName("questionPre"+questionID)[i].innerHTML=s2;
+    	        					}
+        						
+    						}else{
+    							if(document.getElementsByClassName("questionPre"+questionID)[i] != null){
+    	    						document.getElementsByClassName("questionPre"+questionID)[i].innerHTML="0%";
+    	        					}
+    						}
+	    						
+        				};
+        				
+        			})
+        		}
+        </script>
+ 
+        
+       <!--  topic -->
+       <script type="text/javascript">
+        		function getStatisticDetailTopicByClassAndModule1(topicID, clasz, modulez) {
+        			
+        			var url = '/api/statistic/statisticDetail1?topicID=' + topicID + ' &classID=' + clasz + '&moduleID=' + modulez;
+        			$.get(url,function(data,status){
+        				
+        				var s2="";
+        				for(var i =0;i<data.length+100;i++){
+
+        					if(i < data.length )
+    						{
+        						s2=`<td>`+data[i][0]+`</td>`;
+        						if(document.getElementsByClassName("topicPre"+topicID)[i] != null){
+    	    						document.getElementsByClassName("topicPre"+topicID)[i].innerHTML=s2;
+    	        					}
+        						
+    						}else{
+    							if(document.getElementsByClassName("topicPre"+topicID)[i] != null){
+    	    						document.getElementsByClassName("topicPre"+topicID)[i].innerHTML="0%";
+    	        					}
+    						}
+	    						
+        				};
+        				return s2;
+        			})
+        		}
+        </script>
+  <!--    overview -->
+	
+	<script type="text/javascript">
+	        	$('#viewStatisticOverview').on('click', () => {
+	        		var clasz = $('#clasz').val();
+	        		var modulez = $('#modulez').val();
+	        		getStatisticOverviewByClassAndModule(clasz, modulez);
+	        		drawChartTopic1(clasz, modulez);
+	        		drawChartTopic2(clasz, modulez);
+	        		drawChartTopic3(clasz, modulez);
+	        		drawChartTopic4(clasz, modulez);
+	        		$('#ketqua').show();
+	        		$('#detail').hide();
+	        	});
+	        	
+	        	function overviewFeedback(){
+	      		  document.querySelector(".chart").style.display="block"; 
+	      		}
+	      		function detailFeedBack(){
+	      		  document.querySelector(".detail").style.display="inline-flex"; 
+	      		}
+	        	
+				function getStatisticOverviewByClassAndModule(clasz, modulez) {
+        			
+        			var url ='/api/statistic/statisticOverview?classID=' + clasz + '&moduleID=' + modulez;
+        			 $.get(url,function(data,status){
+        				 var a=[];
+        				 for(var i =0;i<5;i++){
+        					 
+        					 if(data[i]!=null){
+        						 a.push(data[i][0]);
+        					 }
+        					 else{
+        						 a.push("0");
+        					 }
+        					 
+        				 } console.log("a: "+a);
+        				 var chartdataObj={
+               					 'StronglyDisagree':Number(a[0]),
+       	        			     'Disagree':Number(a[1]),
+       	        			     'Neutral':Number(a[2]),
+       	        			     'Agree':Number(a[3]),
+       	        			     'StronglyAgree':Number(a[4]),
+               			 };
+        				  var datachart = new google.visualization.DataTable();
+        				  datachart.addColumn('string', 'Users');
+        				  datachart.addColumn('number', 'Total');
+        				  datachart.addRows([
+	        			      ['Strongly Disagree', chartdataObj.StronglyDisagree],
+	        			      ['Disagree', chartdataObj.Disagree],
+	        			      ['Neutral', chartdataObj.Neutral],
+	        			      ['Agree', chartdataObj.Agree],
+	        			      ['Strongly Agree',chartdataObj.StronglyAgree]
+	        			    ]);
+	        			    
+	        			    // Set option của biểu đồ
+	        			    var options = {
+	        			      'title': '',
+	        			      'awidth': 600,
+	        			      'height': 400
+	        			    };
+	        			
+	        			    // Vẽ biểu đồ từ data và option đã khai báo
+	        			    var chart = new google.visualization.PieChart(document.getElementById('chart'));
+	        			    chart.draw(datachart, options);
+	        		 });
+        		}
+				
+   			 function drawChartTopic1(clasz, modulez) {
+					
+					var url ='/api/statistic/statisticOverview1?topicID=1&classID=' + clasz + '&moduleID=' + modulez;
+					 $.get(url,function(data,status){
+						 var a=[];
+						 for(var i =0;i<5;i++){
+							 
+							 if(data[i]!=null){
+								 a.push(data[i][0]);
+							 }
+							 else{
+								 a.push("0");
+							 }
+						 } console.log("a: "+a);
+						 var chartdataObj={
+		       					  'StronglyDisagree':Number(a[0]),
+			        			  'Disagree':Number(a[1]),
+			        			  'Neutral':Number(a[2]),
+			        			  'Agree':Number(a[3]),
+			        			  'StronglyAgree':Number(a[4]),
+		       			};
+						  var datachart = new google.visualization.DataTable();
+						  datachart.addColumn('string', 'Users');
+						  datachart.addColumn('number', 'Total');
+						  datachart.addRows([
+		    			      ['Strongly Disagree', chartdataObj.StronglyDisagree],
+		    			      ['Disagree', chartdataObj.Disagree],
+		    			      ['Neutral', chartdataObj.Neutral],
+		    			      ['Agree', chartdataObj.Agree],
+		    			      ['Strongly Agree',chartdataObj.StronglyAgree]
+		    			    ]);
+		    			    
+		    			    // Set option của biểu đồ
+		    			    var options = {
+		    			      'title': data[0][1],
+		    			      'width': 300,
+		    			      'height': 200
+		    			    };
+		    			
+		    			    // Vẽ biểu đồ từ data và option đã khai báo
+		    			    var chart = new google.visualization.PieChart(document.getElementById('topic1'));
+		    			    chart.draw(datachart, options);
+		    		 });
+			 }
+   			 
+   			function drawChartTopic2(clasz, modulez) {
+				
+				var url ='/api/statistic/statisticOverview1?topicID=2&classID=' + clasz + '&moduleID=' + modulez;
+				 $.get(url,function(data,status){
+					 var a=[];
+					 for(var i =0;i<5;i++){
+						 
+						 if(data[i]!=null){
+							 a.push(data[i][0]);
+						 }
+						 else{
+							 a.push("0");
+						 }
+					 } console.log("a: "+a);
+					 var chartdataObj={
+	       					  'StronglyDisagree':Number(a[0]),
+		        			  'Disagree':Number(a[1]),
+		        			  'Neutral':Number(a[2]),
+		        			  'Agree':Number(a[3]),
+		        			  'StronglyAgree':Number(a[4]),
+	       			};
+					  var datachart = new google.visualization.DataTable();
+					  datachart.addColumn('string', 'Users');
+					  datachart.addColumn('number', 'Total');
+					  datachart.addRows([
+	    			      ['Strongly Disagree', chartdataObj.StronglyDisagree],
+	    			      ['Disagree', chartdataObj.Disagree],
+	    			      ['Neutral', chartdataObj.Neutral],
+	    			      ['Agree', chartdataObj.Agree],
+	    			      ['Strongly Agree',chartdataObj.StronglyAgree]
+	    			    ]);
+	    			    
+	    			    // Set option của biểu đồ
+	    			    var options = {
+	    			      'title': data[0][1],
+	    			      'width': 300,
+	    			      'height': 200
+	    			    };
+	    			
+	    			    // Vẽ biểu đồ từ data và option đã khai báo
+	    			    var chart = new google.visualization.PieChart(document.getElementById('topic2'));
+	    			    chart.draw(datachart, options);
+	    		 });
+			}
+   			
+   			function drawChartTopic3(clasz, modulez) {
+				
+				var url ='/api/statistic/statisticOverview1?topicID=3&classID=' + clasz + '&moduleID=' + modulez;
+				 $.get(url,function(data,status){
+					 var a=[];
+					 for(var i =0;i<5;i++){
+						 
+						 if(data[i]!=null){ 
+							 a.push(data[i][0]);
+						 }
+						 else{
+							 a.push("0");
+						 }
+					 } console.log("a: "+a);
+					 var chartdataObj={
+	       					  'StronglyDisagree':Number(a[0]),
+		        			  'Disagree':Number(a[1]),
+		        			  'Neutral':Number(a[2]),
+		        			  'Agree':Number(a[3]),
+		        			  'StronglyAgree':Number(a[4]),
+	       			};
+					  var datachart = new google.visualization.DataTable();
+					  datachart.addColumn('string', 'Users');
+					  datachart.addColumn('number', 'Total');
+					  datachart.addRows([
+	    			      ['Strongly Disagree', chartdataObj.StronglyDisagree],
+	    			      ['Disagree', chartdataObj.Disagree],
+	    			      ['Neutral', chartdataObj.Neutral],
+	    			      ['Agree', chartdataObj.Agree],
+	    			      ['Strongly Agree',chartdataObj.StronglyAgree]
+	    			    ]);
+	    			    
+	    			    // Set option của biểu đồ
+	    			    var options = {
+	    			      'title': data[0][1],
+	    			      'width': 300,
+	    			      'height': 200
+	    			    };
+	    			
+	    			    // Vẽ biểu đồ từ data và option đã khai báo
+	    			    var chart = new google.visualization.PieChart(document.getElementById('topic3'));
+	    			    chart.draw(datachart, options);
+	    		 });
+		 	}
+   			
+   			function drawChartTopic4(clasz, modulez) {
+				
+				var url ='/api/statistic/statisticOverview1?topicID=4&classID=' + clasz + '&moduleID=' + modulez;
+				 $.get(url,function(data,status){
+					 var a=[];
+					 for(var i =0;i<5;i++){
+						 
+						 if(data[i]!=null){
+							 a.push(data[i][0]);
+						 }
+						 else{
+							 a.push("0");
+						 }
+					 } console.log("a: "+a);
+					 var chartdataObj={
+	       					  'StronglyDisagree':Number(a[0]),
+		        			  'Disagree':Number(a[1]),
+		        			  'Neutral':Number(a[2]),
+		        			  'Agree':Number(a[3]),
+		        			  'StronglyAgree':Number(a[4]),
+	       			};
+					  var datachart = new google.visualization.DataTable();
+					  datachart.addColumn('string', 'Users');
+					  datachart.addColumn('number', 'Total');
+					  datachart.addRows([
+	    			      ['Strongly Disagree', chartdataObj.StronglyDisagree],
+	    			      ['Disagree', chartdataObj.Disagree],
+	    			      ['Neutral', chartdataObj.Neutral],
+	    			      ['Agree', chartdataObj.Agree],
+	    			      ['Strongly Agree',chartdataObj.StronglyAgree]
+	    			    ]);
+	    			    
+	    			    // Set option của biểu đồ
+	    			    var options = {
+	    			      'title': data[0][1],
+	    			      'width': 300,
+	    			      'height': 200
+	    			    };
+	    			
+	    			    // Vẽ biểu đồ từ data và option đã khai báo
+	    			    var chart = new google.visualization.PieChart(document.getElementById('topic4'));
+	    			    chart.draw(datachart, options);
+	    		 });
+		 }
+    </script>
+	
+<!-- 	select -->
+
+	<script type="text/javascript">
+	function selected(obj) {
+		var options = obj.children;
+		dem = 1;
+		for (var i = 0; i < options.length; i++) {
+			if (options[i].selected) {
+				products = options[i].value;
+				console.log(products)
+				$('#class').val(products);
+			}
+		}
+	}
+	
+	function selected1(obj) {
+		var options = obj.children;
+		dem = 1;
+		for (var i = 0; i < options.length; i++) {
+			if (options[i].selected) {
+				products = options[i].value;
+				console.log(products)
+				$('#module').val(products);
+			}
+		}
+	}
+	</script>
+	
+	<script type="text/javascript">
+		$(document).ready(function () {   
+		    $('body').on('change','#clasz', function() {
+		         $('#show_class').val(this.value);
+		    });
+		    $('body').on('change','#modulez', function() {
+		         $('#show_module').val(this.value);
+		    });
+		});  
+	</script>
+</body>
+</html>

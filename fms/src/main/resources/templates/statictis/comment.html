@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Title</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="../css/css.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<!--sweet alert-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script type="text/javascript" src="../css/javascript.js"></script>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<th:block th:include="/common/_header"></th:block>
+	<article style="padding: 15px;">
+	<div style="margin: auto;width: 80%">
+    <div class="row">
+            <span class="col-md-1"><b>Class:</b></span><br>
+            
+			<select class="col-2 browser-default custom-select" style="width: 3in;" id="keyword1" name="keyword1"
+				th:value="${keyword1}">
+				<option th:each="clas : ${classs}" th:text="${clas.className}"
+					th:value="${clas.classID}"></option>
+			</select>
+		
+            <span class="col-md-1"><b>Module:</b></span><br>
+			<select  class="col-2 browser-default custom-select" style="width: 3in;" id="keyword" name="keyword"
+				th:value="${keyword}">
+				<option th:each="module : ${modules}" th:text="${module.moduleName}"
+					th:value="${module.moduleID}"></option>
+			</select> 
+           <div>
+				<th:block th:if="${session.USER.role == 'admin'}">
+	            <a href="/admin/result">
+	                <button class="button btn btn-default">
+	                	Show Overview
+	                </button>
+	            </a>
+	            <a href="/admin/result">
+	                <button class="button btn btn-default">
+	                	Show Detail
+	                </button>
+	            </a>
+	            </th:block>
+	            <th:block th:if="${session.USER.role == 'trainer'}">
+	            <a href="/trainer/result">
+	                <button class="button btn btn-default" >
+	                	Show Overview
+	                </button>
+	            </a>
+	            <a href="/trainer/result">
+	                <button class="button btn btn-default">
+	                	Show Detail
+	                </button>
+	            </a>
+	            </th:block>
+            </div>                           
+     </div>
+      
+     <!--detail-->
+     <div>
+
+		<h1 style="text-align: center;">COMMENT RESULT</h1>
+	
+		<table class="table table-bordered" id="tablemain">
+			<thead>
+				<th>No.</th>
+				<th>Trainee id</th>
+				<th>Content</th>
+			</thead>
+			<tbody>
+			 <tr th:each="traineeComment,comment : ${traineeComments}">
+			 
+				<td th:utext="${comment.count}">count</td>
+				<td th:text="${traineeComment.trainee.username}"></td>
+				<td th:text="${traineeComment.comment}"></td>
+			</tr> 
+			</tbody>
+			
+		</table>
+		
+		<div style="display: none;" id="facetable">
+			<table class="table table-bordered" id="tablforeign">
+				<thead>
+					<th>No.</th>
+					<th>Trainee id</th>
+					<th>Content</th>
+				</thead>
+				<tbody id="table">
+				</tbody>
+			</table>
+		</div>
+		
+		<div id="pagination">
+			<ul class="pagination">
+				<li class="page-item">
+					<a class="page-link">Tổng số: [[${totalItems}]]</a>
+				</li>
+				<li class="page-item">
+					<a class="page-link" th:if="${currentPage >1}"
+						th:href="@{'/page/' + ${currentPage - 1}}">Previous</a>
+				</li>
+				<li class="page-item"
+					th:each="i: ${#numbers.sequence(1, totalPages)}">
+					<a class="page-link" th:if="${currentPage != i}"
+						th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+					<span class="page-link" th:unless="${currentPage != i}">[[${i}]]</span>
+				</li>
+				<li class="page-item">
+					<a class="page-link" th:if="${currentPage < totalPages}"
+						th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
+					<span class="page-link" th:unless="${currentPage < totalPages}">Next</span>
+				</li>
+			</ul>
+		</div>
+		
+	</div>
+</div>                       
+</article>
+	<th:block th:include="/common/_footer"></th:block>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css"
+		href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+	
+	<script>
+ 		$('#keyword1').on('change', function($event) {
+			
+			var clas = $event.target.value;
+			console.log(clas)
+			if(clas == 0){
+				window.location.href= "http://localhost:8080/Comment"
+			}else{
+				$("#facetable").show();
+				$("#tablemain").hide();
+				$("#pagination").hide();
+			}
+ 			$.ajax({
+				type : 'GET',
+				url : `/api/comment/search?classID=${clas}`,
+				beforeSend : function() {
+					console.log('before sending')
+				},
+				success : renderToTable,
+				fail : function(error) {
+					console.log('error', error)
+				},
+			}); 
+		}); 
+		
+		$('#keyword').on('change', function($event) {
+			var module = $event.target.value;
+			console.log(module)
+			if(module == 0){
+				window.location.href= "http://localhost:8080/Comment"
+			}else{
+				$("#facetable").show();
+				$("#tablemain").hide();
+				$("#pagination").hide();
+			}
+ 			$.ajax({
+				type : 'GET',
+				url : `/api/comment/search1?moduleID=${module}`,
+				beforeSend : function() {
+					console.log('before sending')
+				},
+				success : renderToTable,
+				fail : function(error) {
+					console.log('error', error)
+				},
+			}); 
+		});
+
+ 		function renderToTable(results) {
+			if (!results.length) {
+				$('#table').html(`<tr><td colspan="5"><b style='text-align: center;color: red'>Not have any items</b></td></tr>`)
+				return;
+			}
+			var block = results.map((traineeComment, index) => {
+				return `
+				 <tr>
+				<td>${index+1}</td>
+				<td>${traineeComment.trainee.username}</td>
+				<td>${traineeComment.comment}</td>
+				</tr>`;
+			
+			
+		})
+			$('#table').html(block),
+			$('#tablforeign').DataTable({
+				retrieve: true,
+		        	"pageLength": 3
+		        });
+ 	    
+		}
+ 		
+	</script>
+</body>
+</html>

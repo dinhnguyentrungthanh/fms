@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en " xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Review Add Feedback</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="../css/css.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<!--sweet alert-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script type="text/javascript" src="../css/javascript.js"></script>
+</head>
+<body>
+
+	<th:block th:include="/common/_header"></th:block>
+	<span>
+		<h4 style="text-align: center; margin-top:20px">
+			<b>REVIEW NEW FEEDBACK</b>
+		</h4>
+	</span>
+	<br>
+	<article style="padding: auto; margin-left: 315px; margin-right: 290px">
+		<div style="margin: auto; width: 60%">
+		
+			<!-- TypeFeedbackID -->
+			<!-- <input type="hidden" th:value="${feedback.typeFeedback.typeID}"><br>  -->
+			<span><b>Feedback Title:</b><b th:text="${feedback.title}" th:value="${feedback.title}" style="color: red"></b></span><br>
+			<span><b>Admin ID: </b><b th:text="${session.USER.username}" th:value="${session.USER.username}" style="color: red"></b></span>
+			
+	<form th:object="${feedback_question}" th:action="@{/saveFb_Question}" action="#"
+			method="post" id="form">
+			<!-- FeedbackID -->
+			
+			<input type="hidden" th:value="${feedback.feedbackID}" name="feedbackID"><br>
+			
+			
+			   
+			<span><h4 th:each="topic : ${topics}"
+					th:text="${topic.topicName}" th:value="${topic.topicID}"
+					th:if="${topic.topicID <= 1}"></h4></span>   
+
+			<ul class="questionShow">
+
+			</ul>
+
+			<span><h4 th:each="topic : ${topics}"
+					th:text="${topic.topicName}" th:value="${topic.topicID}"
+					th:if="${topic.topicID <= 2 && topic.topicID > 1}"></h4></span>
+
+
+			<ul class="questionShow2">
+
+			</ul>
+
+			<span><h4 th:each="topic : ${topics}"
+					th:text="${topic.topicName}" th:value="${topic.topicID}"
+					th:if="${topic.topicID <= 3 && topic.topicID > 2}"></h4> </span>
+
+			<ul class="questionShow3">
+
+			</ul>
+
+			<span><h4 th:each="topic : ${topics}"
+					th:text="${topic.topicName}" th:value="${topic.topicID}"
+					th:if="${topic.topicID <= 4 && topic.topicID > 3}"></h4> </span>
+
+			<ul class="questionShow4">
+
+			</ul>
+			
+				<a th:id="${feedback.feedbackID}" th:href="@{/delete2?id={id}(id=${feedback.feedbackID})}">
+					<button type="button" class="btn btn-default"
+					style="background-color: darkorange; color: white; font-size: 19px">Back
+					</button>
+				</a>
+			
+			<button type="submit" class="btn btn-default"
+				style="background-color: darkorange; color: white; font-size: 19px">Save
+			</button>
+			</form>
+			
+			<!-- Modal -->
+		<div id="myModal" class="modal fade">
+			<div class="modal-dialog modal-confirm">
+				<div class="modal-content">
+					<div class="modal-header flex-column">
+						<div class="icon-box">
+							<i class="material-icons">&#xE876;</i>
+						</div>
+						<h4 class="modal-title w-100" 
+						th:text="#{message.saveFeedback.title}"></h4>
+						<div class="modal-footer justify-content-center">
+							<a href="/admin/feedbacks" class="btn btn-success btn-block"
+								th:text="#{message.saveFeedback.footer}"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		
+	</article>
+	<footer>
+		<div class="grid">
+			<div>
+				<p>We are ready for challenge</p>
+				<p>vnhung1903@gmail.com</p>
+			</div>
+			<div>
+				<p>Công viên phần mềm quang Trung</p>
+				<p>+84776629411</p>
+			</div>
+			<div>
+				<p>We are always looking for talent</p>
+				<p>vinhndps08838@gmail.com</p>
+			</div>
+			<div></div>
+			<div class="footer-icon">
+				<i class="fa fa-twitter"
+					style="padding: 10px; font-size: 20px; color: white"></i> <i
+					class="fa fa-facebook-f"
+					style="padding: 10px; font-size: 20px; color: white"></i> <i
+					class="fa fa-google-plus"
+					style="padding: 10px; font-size: 20px; color: white"></i>
+			</div>
+		</div>
+	</footer>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<!-- <script
+		src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  -->
+		
+	<script type="text/javascript" th:if="${successok}">
+		$('#myModal').modal('show')
+	</script>	
+
+	<script type="text/javascript">
+	        $(document).ready(function() {
+	        	renderItems();
+	        	renderItem2s();
+	        	renderItem3s();
+	        	renderItem4s();
+	        });
+     </script>
+
+	<script type="text/javascript">
+		 function renderItems() {
+	 	        var questions = JSON.parse(localStorage.getItem("question"));
+	 	        var newQuestionIDs = JSON.parse(localStorage.getItem("newQuestionID"));
+	 	        if (newQuestionIDs == null) {
+	 	        	var newQuestionIDs = [];
+	 	        }
+	 	      
+	 	        if (questions == null) {
+	 	        	var questions = [];
+	 	        }
+	 	      
+	 	        console.log(questions);
+	 	       	var showItemsPlace = $('.questionShow');
+	 	       	showItemsPlace.html('');
+	 	       	
+	 	       questions.map((question, index) => {
+	 	        	showItemsPlace.append(
+	 	            	'<li class="question" th:value="' + question.id + '">' + question.questionContent + '</li>' +
+	 	            	'<input type="hidden" class="question" id="newQuestionID" type="text" name="newQuestionID'  +question.id+'" value="' + question.id + '">'
+	 	        	);
+	 	        	console.log(questions,index)
+	 	        	questions.id = document.getElementById("newQuestionID").value; 
+	 	        	console.log(document.getElementById("newQuestionID").value);
+	 	        	});
+	 	       /* for (let i = 0; i < questions.id; i++){
+	 	    	   console.log(i);
+	 	       }; */
+			}
+		 
+		 function renderItem2s() {
+	 	        var questions = JSON.parse(localStorage.getItem("question2"));
+	 	        var newQuestionIDs = JSON.parse(localStorage.getItem("newQuestionID"));
+	 	        if (newQuestionIDs == null) {
+	 	        	var newQuestionIDs = [];
+	 	        }
+	 	        
+	 	        if (questions == null) {
+	 	        	var questions = [];
+	 	        }
+	 	      
+	 	        console.log(questions);
+	 	       	var showItemsPlace = $('.questionShow2');
+	 	       	showItemsPlace.html('');
+	 	       	
+	 	       questions.map((question, index) => {
+	 	        	showItemsPlace.append(
+	 	        			'<li class="question2" th:value="' + question.id + '">' + question.questionContent + '</li>' +
+		 	            	'<input type="hidden" class="question" id="newQuestionID" type="text"  name="newQuestionID'  +question.id+'" value="' + question.id + '">'
+	 	        	);
+	 	        	console.log(questions,index)
+	 	        	questions.newQuestionID = document.getElementById("newQuestionID").value; 
+	 	        	console.log(document.getElementById("newQuestionID").value);
+	 	       });
+			}
+		 
+		 function renderItem3s() {
+	 	        var questions = JSON.parse(localStorage.getItem("question3"));
+	 	       	var newQuestionIDs = JSON.parse(localStorage.getItem("newQuestionID"));
+	 	        if (newQuestionIDs == null) {
+	 	        	var newQuestionIDs = [];
+	 	        }
+	 	        if (questions == null) {
+	 	        	var questions = [];
+	 	        }
+	 	      
+	 	        console.log(questions);
+	 	       	var showItemsPlace = $('.questionShow3');
+	 	       	showItemsPlace.html('');
+	 	       	
+	 	       questions.map((question, index) => {
+	 	        	showItemsPlace.append(
+	 	        			'<li class="question3" th:value="' + question.id + '">' + question.questionContent + '</li>' +
+		 	            	'<input type="hidden" class="question" id="newQuestionID" type="text"  name="newQuestionID'  +question.id+'" value="' + question.id + '">'
+	 	        	);
+	 	        	console.log(questions,index)
+	 	        	questions.newQuestionID = document.getElementById("newQuestionID").value; 
+	 	        	console.log(document.getElementById("newQuestionID").value);
+	 	       });
+			}
+		 
+		 function renderItem4s() {
+	 	        var questions = JSON.parse(localStorage.getItem("question4"));
+	 	       	var newQuestionIDs = JSON.parse(localStorage.getItem("newQuestionID"));
+	 	        if (newQuestionIDs == null) {
+	 	        	var newQuestionIDs = [];
+	 	        }
+	 	        if (questions == null) {
+	 	        	var questions = [];
+	 	        }
+	 	      
+	 	        console.log(questions);
+	 	       	var showItemsPlace = $('.questionShow4');
+	 	       	showItemsPlace.html('');
+	 	       	
+	 	       questions.map((question, index) => {
+	 	        	showItemsPlace.append(
+	 	        			'<li class="question4" th:value="' + question.id + '">' + question.questionContent + '</li>' +
+		 	            	'<input type="hidden" class="question" id="newQuestionID" type="text"  name="newQuestionID'  +question.id+'" value="' + question.id + '">'
+	 	        	);
+	 	        	console.log(questions,index)
+	 	        	questions.newQuestionID = document.getElementById("newQuestionID").value; 
+	 	        	console.log(document.getElementById("newQuestionID").value);
+	 	       });
+			}
+	</script>
+</body>
+</html>
+
+
+
+

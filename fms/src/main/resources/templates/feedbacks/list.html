@@ -1,0 +1,342 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title>Feedback Manager</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="../../../css/css.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="../../../javascript.js"></script>
+<style type="text/css">
+.modal-confirm {
+	color: #636363;
+	width: 400px;
+}
+
+.modal-confirm .modal-content {
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+	text-align: center;
+	font-size: 14px;
+}
+
+.modal-confirm .modal-header {
+	border-bottom: none;
+	position: relative;
+}
+
+.modal-confirm h4 {
+	text-align: center;
+	font-size: 26px;
+	margin: 30px 0 -10px;
+}
+
+.modal-confirm .close {
+	position: absolute;
+	top: -5px;
+	right: -2px;
+}
+
+.modal-confirm .modal-body {
+	color: #999;
+}
+
+.modal-confirm .modal-footer {
+	border: none;
+	text-align: center;
+	border-radius: 5px;
+	font-size: 13px;
+	padding: 30px 15px 25px;
+}
+
+.modal-confirm .icon-box {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 50%;
+	z-index: 9;
+	text-align: center;
+	border: 3px solid #f15e5e;
+}
+
+.modal-confirm .icon-box2 {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 50%;
+	z-index: 9;
+	text-align: center;
+	border: 3px solid lime;
+	color: lime;
+	font-size: 46px;
+	display: inline-block;
+	margin-top: 13px;
+}
+
+.modal-confirm .icon-box i {
+	color: #f15e5e;
+	font-size: 46px;
+	display: inline-block;
+	margin-top: 13px;
+}
+
+.modal-confirm .btn, .modal-confirm .btn:active {
+	color: #fff;
+	border-radius: 4px;
+	background: #0497fff7;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	min-width: 120px;
+	border: none;
+	min-height: 40px;
+	border-radius: 3px;
+	margin: 0 5px;
+	margin-left: 90px;
+}
+
+.modal-confirm .btnn, .modal-confirm .btn:active {
+	color: #fff;
+	border-radius: 4px;
+	background: blue;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	min-width: 120px;
+	border: none;
+	min-height: 40px;
+	border-radius: 3px;
+	margin: 0 5px;
+}
+
+.modal-confirm .btn-secondary {
+	background: #c1c1c1;
+}
+
+.modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus
+	{
+	background: #a8a8a8;
+}
+
+.modal-confirm .btn-danger {
+	background: #f15e5e;
+}
+
+.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+	background: #ee3535;
+}
+
+.trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
+}
+
+.modal-confirm .modal-footerr {
+	border: none;
+	text-align: center;
+	border-radius: 5px;
+	font-size: 13px;
+	padding: 15px 15px 2px;
+}
+
+.modal-confirm .icon-boxx {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 50%;
+	z-index: 9;
+	text-align: center;
+	border: 3px solid #82ce34;
+}
+
+.modal-confirm .icon-boxx i {
+	color: #82ce34;
+	font-size: 46px;
+	display: inline-block;
+	margin-top: 13px;;
+}
+
+.dataTables_info {
+	display: none;
+}
+
+.dataTables_length {
+	display: none;
+}
+
+#tblFB {
+	width: 80%;
+	margin-left: 180px;
+}
+</style>
+</head>
+<body>
+
+	<th:block th:include="/common/_header"></th:block>
+
+	<article style="padding: 15px; width: 80%; margin-left: 7%">
+		<span><h4 style="margin-left: 650px; font-weight: bold;">FeedBack List</h4></span><br>
+		<button class="btn btn-default"
+			style="color: white; background-color: darkorange; margin-left: 180px; margin-bottom: 7px">
+			<a href="/add">Add FeedBack</a>
+		</button>
+		<br>
+		<table id="tblFB" class="table table-bordered">
+			<thead>
+				<th>FeddBackID</th>
+				<th>Title</th>
+				<th>Admin ID</th>
+				<th>Actions</th>
+			</thead>
+			<tbody>
+				<tr th:each="feedback : ${feedbacks}">
+					<td style="width: 170px" th:text="${feedback.feedbackID}"></td>
+					<td th:text="${feedback.title}"></td>
+					<td style="width: 170px" th:text="${feedback.admins.username}"></td>
+					<td style="width: 190px">
+						<a th:href="@{/rv-fb?id={id}(id=${feedback.feedbackID})}">
+								<button class="btn">
+									<span class="fa fa-eye" style="margin: auto 10px;"></span>
+								</button>
+						</a> 
+						<a th:href="@{/edit-fb?id={id}(id=${feedback.feedbackID})}">
+								<button class="btn">
+									<span class="fa fa-edit" style="margin: auto 10px;"></span>
+								</button>
+						</a> 
+						<!-- <a th:href="@{/delete?id={id}(id=${feedback.feedbackID})}">
+								<button class="btn" onclick="removeElement()">
+									<span class="fa fa-times"></span>
+								</button>
+						</a> -->
+						
+						<!------------------------------------------- DELETE ----------------------------------------------------->
+					<a th:href="'#myModal' + ${feedback.feedbackID}" data-toggle="modal">
+							<button class="btn">
+								<span class="fa fa-trash"></span>
+							</button>
+					</a> 
+					<!-- Modal HTML -->
+						<div th:id="'myModal' + ${feedback.feedbackID}" class="modal fade">
+							<div class="modal-dialog modal-confirm">
+								<div class="modal-content">
+									<div class="modal-header flex-column">
+										<div class="icon-box">
+											<!-- <i class="material-icons">&#xE5CD;</i> -->
+											<i class="material-icons ">&#xe645;</i>
+										</div>
+										<h4 class="modal-title w-100"
+											th:text="#{message.deleteFeedback.title}"></h4>
+									</div>
+									<div class="modal-body">
+										<p th:text="#{message.deleteFeedback.body}"></p>
+									</div>
+									<div class="modal-footer justify-content-center">
+										<a
+											th:href="@{/delete?id={id}(id=${feedback.feedbackID})}">
+											<button type="button" class="btnn"
+												th:text="#{message.deleteFeedback.footeryes}"></button>
+										</a>
+										<button type="button" data-dismiss="modal"
+											class="btnn btn-danger"
+											th:text="#{message.deleteFeedback.footerno}"></button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div>
+			 <ul class="pagination" style="margin-left: 180px">
+				<li><a>Tổng số: [[${totalItems2}]]</a></li>
+				<li><a th:if="${currentPage2 >1}"
+					th:href="@{'/page2/' + ${currentPage2 - 1}}">Prive</a>
+				<li><span th:each="i: ${#numbers.sequence(1, totalPages2)}">
+						<a style="color:#23527c" th:if="${currentPage2 != i}" th:href="@{'/page2/' + ${i}}">[[${i}]]</a>
+						<span style="color:#23527c" th:unless="${currentPage2 != i}">[[${i}]]</span>
+				</span></li>
+				<li><a th:if="${currentPage2 < totalPages2}"
+					th:href="@{'/page2/' + ${currentPage2 + 1}}">Next</a> <span
+					th:unless="${currentPage2 < totalPages2}">Next</span></li>
+				<li><a th:if="${currentPage2 < totalPages2}"
+					th:href="@{'/page2/' + ${totalPages2}}">Last</a> <span
+					th:unless="${currentPage2 < totalPages2}">Last</span></li>
+			</ul> 
+		</div>
+	</article>
+	
+	<!-- Modal -->
+	<div id="myModall" class="modal fade ">
+		<div class="modal-dialog modal-confirm">
+			<div class="modal-content">
+				<div class="modal-header flex-column">
+					<div class="icon-box2 ">
+						<i class="material-icons">&#xE876;</i>
+					</div>
+					<h4 class="modal-title w-100"
+						th:text="#{message.deleteFeedback1.title}"></h4>
+					<div class="modal-footer justify-content-center">
+						<a href="/admin/feedbacks" class="btn btn-success btn-block"
+							th:text="#{message.saveFeedback.footer}"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<footer>
+		<div class="grid">
+			<div>
+				<p>We are ready for challenge</p>
+				<p>vnhung1903@gmail.com</p>
+			</div>
+			<div>
+				<p>Công viên phần mềm quang Trung</p>
+				<p>+84776629411</p>
+			</div>
+			<div>
+				<p>We are always looking for talent</p>
+				<p>vinhndps08838@gmail.com</p>
+			</div>
+			<div></div>
+			<div class="footer-icon">
+				<i class="fa fa-twitter"
+					style="padding: 10px; font-size: 20px; color: white"></i> <i
+					class="fa fa-facebook-f"
+					style="padding: 10px; font-size: 20px; color: white"></i> <i
+					class="fa fa-google-plus"
+					style="padding: 10px; font-size: 20px; color: white"></i>
+			</div>
+		</div>
+	</footer>
+	
+		
+	<script type="text/javascript" th:if="${successok}">
+		$('#myModall').modal('show')
+	</script>	
+</body>
+</html>
+
+

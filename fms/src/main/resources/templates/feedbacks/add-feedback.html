@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en " xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Add Feedback</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="../css/css.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Bootstrap CSS -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+</head>
+<body>
+
+	<th:block th:include="/common/_header"></th:block>
+
+	<article style="padding: 15px;">
+		<form th:object="${feedback}" th:action="@{/saveFeedback}" action="#"
+			method="post" id="form">
+			<div style="width: 80%; margin: auto; margin: auto;">
+				<h3>CREATE NEW FEEDBACK</h3>
+				<div>
+					<span th:text="FeedbackType" th:for="typefeedback.typeName">FeedBack Type: </span> 
+					<select class="browser-default custom-select" style="width: 20em" th:field="*{typeFeedback}" name="typeFeedback">
+						<option th:each="typeFeedback : ${typeFeedbacks}"
+								th:text="${typeFeedback.typeName}"
+								th:value="${typeFeedback.typeID}">
+						</option>
+					</select> 
+					
+					<span th:for="title">FeedBack Title: </span> 
+					<input class="browser-default custom-select" style="width: 20em" type="text" th:field="*{title}" th:errorclass="field-error"
+						cols="35" rows="10"/>
+					<br><span style="color: darkorange; margin-left:544px"
+						th:if="${#fields.hasErrors('title')}"
+						th:errors="*{title}">
+					</span>
+					
+					<div style="float: right;">
+
+							<button style="background-color: darkorange; color: white; font-size: 19px; margin-bottom: 20px; padding: auto" 
+								     type="submit" id="btn" value="Review">Review</button><!-- onclick="showdata(chkId)" -->
+								   
+
+					</div>
+				</div>
+				<div style="clear: both; margin: 20px auto; height: auto;">
+					<table style="width: 100%" border="1">
+						<thead>
+							<th><h6 style="float:left; margin-left:9px; ">
+									<b style="text-align:center" th:each="topic : ${topics}" th:text="${topic.topicName}"
+										th:value="${topic.topicID}" th:if="${topic.topicID <= 1}"></b>
+								</h6></th>
+							<th><h6 style="float:left; margin-left:9px; ">
+									<b th:each="topic : ${topics}" th:text="${topic.topicName}"
+										th:value="${topic.topicID}"
+										th:if="${topic.topicID <= 2 && topic.topicID > 1}"></b>
+								</h6></th>
+							<th><h6 style="float:left; margin-left:9px; ">
+									<b style="text-align:center" th:each="topic : ${topics}" th:text="${topic.topicName}"
+										th:value="${topic.topicID}"
+										th:if="${topic.topicID <= 3 && topic.topicID > 2}"></b>
+								</h6></th>
+							<th><h6 style="float:left; margin-left:9px; ">
+									<b style="text-align:center" th:each="topic : ${topics}" th:text="${topic.topicName}"
+										th:value="${topic.topicID}"
+										th:if="${topic.topicID <= 4 && topic.topicID > 3}"></b>
+								</h6></th>
+						</thead>
+						<tbody>
+							<tr>
+								<td style="padding: 10px;">
+									<div class="form-group">
+										<div th:each="question : ${questions}"
+											style="margin-bottom: 15px">
+											<input type="checkbox" name="question" id="question.questionID"style="text-align: right"
+												th:attr="onclick=|check('${question.questionContent}#${question.questionID}')|"
+												th:text="${question.questionContent}"
+												th:value="${question.questionID}"
+												th:if="${question.topic.topicID <= 1}" >
+										</div>
+									</div>
+								</td>
+
+								<td style="padding: 10px;">
+									<div class="form-group">
+										<div th:each="question : ${questions}"
+											style="margin-bottom: 15px">
+											<input type="checkbox" name="question" id="question.questionID"style="text-align: right"
+												th:attr="onclick=|check2('${question.questionContent}#${question.questionID}')|"
+												th:text="${question.questionContent}"
+												th:value="${question.questionID}"
+												th:if="${question.topic.topicID > 1 && question.topic.topicID <= 2}">
+										</div>
+									</div>
+								</td>
+
+								<td style="padding: 10px;">
+									<div class="form-group">
+										<div th:each="question : ${questions}"
+											style="margin-bottom: 15px">
+											<input type="checkbox" name="question" id="question.questionID"style="text-align: right"
+												th:attr="onclick=|check3('${question.questionContent}#${question.questionID}')|"
+												th:text="${question.questionContent}"
+												th:value="${question.questionID}"
+												th:if="${question.topic.topicID > 2 && question.topic.topicID <=3}">
+										</div>
+									</div>
+								</td>
+
+								<td style="padding: 10px;">
+									<div class="form-group">
+										<div th:each="question : ${questions}"
+											style="margin-bottom: 15px">
+											<input type="checkbox" name="question" id="question.questionID"style="text-align: right"
+												th:attr="onclick=|check4('${question.questionContent}#${question.questionID}')|"
+												th:text="${question.questionContent}"
+												th:value="${question.questionID}"
+												th:if="${question.topic.topicID > 3}">
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+				<div class="form-group">
+					<a href="/admin/feedbacks" class="btn btn-default"
+						style="background-color: darkorange; color: white; font-size: 19px">Back
+					</a>
+				</div>
+			</div>
+		</form>
+		
+	</article>
+	<footer>
+		<div class="grid">
+			<div>
+				<p>We are ready for challenge</p>
+				<p>vnhung1903@gmail.com</p>
+			</div>
+			<div>
+				<p>Công viên phần mềm quang Trung</p>
+				<p>+84776629411</p>
+			</div>
+			<div>
+				<p>We are always looking for talent</p>
+				<p>vinhndps08838@gmail.com</p>
+			</div>
+			<div></div>
+			<div class="footer-icon">
+				<i class="fa fa-twitter"
+					style="padding: 10px; font-size: 20px; color: white"></i> <i
+					class="fa fa-facebook-f"
+					style="padding: 10px; font-size: 20px; color: white"></i> <i
+					class="fa fa-google-plus"
+					style="padding: 10px; font-size: 20px; color: white"></i>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	 <!-- <script
+		src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  -->
+
+	<script type="text/javascript">
+		window.localStorage.removeItem('question');
+		window.localStorage.removeItem('question2');
+		window.localStorage.removeItem('question3');
+		window.localStorage.removeItem('question4');
+		window.localStorage.removeItem('id');
+		window.localStorage.removeItem('newQuestionID');
+		function check(value) {
+			var data = JSON.parse(localStorage.getItem('question'));
+			
+			if (data == null) {
+				data = [];
+			}
+			
+			if (typeof (Storage) !== "undefined") {
+				var question = JSON.parse(localStorage.getItem('question'));
+				data.push({
+					'id': value.split("#")[1],
+					'questionContent': value.split("#")[0]
+				});
+	
+				localStorage.setItem('question', JSON.stringify(data));
+				localStorage.getItem('question');
+			
+			} else {
+				// Sorry! No Web Storage support..
+			}
+		}
+		
+		function check2(value) {
+			var data = JSON.parse(localStorage.getItem('question2'));
+			
+			if (data == null) {
+				data = [];
+			}
+			
+			if (typeof (Storage) !== "undefined") {
+				var question = JSON.parse(localStorage.getItem('question2'));
+				
+				data.push({
+					'id': value.split("#")[1],
+					'questionContent': value.split("#")[0]
+				});
+	
+				localStorage.setItem('question2', JSON.stringify(data));
+				localStorage.getItem('question2');
+			
+			} else {
+				// Sorry! No Web Storage support..
+			}
+		}
+		
+		function check3(value) {
+			var data = JSON.parse(localStorage.getItem('question3'));
+			
+			if (data == null) {
+				data = [];
+			}
+			
+			if (typeof (Storage) !== "undefined") {
+				var question = JSON.parse(localStorage.getItem('question3'));
+ 
+				data.push({
+					'id': value.split("#")[1],
+					'questionContent': value.split("#")[0]
+				});
+	
+				localStorage.setItem('question3', JSON.stringify(data));
+				localStorage.getItem('question3');
+			
+			} else {
+				// Sorry! No Web Storage support..
+			}
+		}
+		
+		function check4(value) {
+			var data = JSON.parse(localStorage.getItem('question4'));
+			
+			if (data == null) {
+				data = [];
+			}
+			
+			if (typeof (Storage) !== "undefined") {
+				var question = JSON.parse(localStorage.getItem('question4'));
+				
+				data.push({
+					'id': value.split("#")[1],
+					'questionContent': value.split("#")[0]
+				});
+	
+				localStorage.setItem('question4', JSON.stringify(data));
+				localStorage.getItem('question4');
+			
+			} else {
+				// Sorry! No Web Storage support..
+			}
+		}
+	</script>
+</body>
+</html>

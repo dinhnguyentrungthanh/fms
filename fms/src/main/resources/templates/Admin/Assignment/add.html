@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Title</title>
+<!-- Required meta tags -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="../../../css/css.css">
+ 
+  
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="../../../css/cssAss.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+	 <th:block th:include="/../common/_header"></th:block>
+	<article class="container">
+		<div>
+			<form th:object="${ass}" th:action="@{save}" action="#" method="post">
+				<h3>Add Assignment</h3>
+				<div class="form-group row">
+
+					<div class="col-sm-4">
+						<label>Module Name</label><br> <select
+							th:field="*{moduleID}" class="form-control" id=""
+							name="sellist1">
+
+
+							<option th:each="module : ${module}"
+								th:value="${module.ModuleID}" th:text="${module.ModuleName}"></option>
+
+						</select>
+
+					</div>
+
+					<div class="col-sm-4">
+						<label>Class Name</label><br> <select
+							th:field="*{classID}" class="form-control" id="sel1"
+							name="sellist1">
+							<option th:each="classs : ${classs}" th:value="${classs.ClassID}"
+								th:text="${classs.ClassName}"></option>
+
+						</select>
+
+					</div>
+
+
+					<div class="col-sm-4">
+						<label>Trainer ID</label><br> <select
+							th:field="*{trainerID}" class="form-control" id="sel1"
+							name="sellist1">
+							<option th:each="trainer : ${trainer}"
+								th:value="${trainer.username}" th:text="${trainer.username}"></option>
+
+						</select>
+					</div>
+
+
+
+
+					<br>
+					<div class="col-sm-12 " style="left: 980px">
+						<br> <label></label> <a href="/admin/Assignment/"
+							class="btn btn-default"
+							style="background-color: darkorange; color: white; font-size: 19px">Back
+						</a>
+						<button type="submit" class="btn btn-default"
+							style="background-color: darkorange; color: white; font-size: 19px">Save
+						</button>
+					</div>
+				</div>
+			</form>
+			<!-- Modal -->
+			<div id="myModal" class="modal fade">
+				<div class="modal-dialog modal-confirm">
+					<div class="modal-content">
+						<div class="modal-header flex-column">
+							<div class="icon-box">
+							<i class="material-icons">&#xE876;</i>
+							</div>
+							<h4 class="modal-title w-100"
+								th:text="#{message.savequestion.title}"></h4>
+							<div class="modal-footer justify-content-center">
+								<a  href="/admin/Assignment/" class="btn btn-success btn-block"
+									th:text="#{message.savequestion.footer}"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="myModal1" class="modal fade">
+				<div class="modal-dialog modal-confirm">
+					<div class="modal-content">
+						<div class="modal-header flex-column">
+						<div style="margin-left: 89px;">
+		     				<img width="50%" src="https://www.flaticon.com/svg/static/icons/svg/972/972545.svg">
+		     			</div>
+
+							<h4 class="modal-title w-100"
+								th:text="#{message.AddAssignment.title}"></h4>
+							<div class="modal-footer justify-content-center">
+								<a  href="/admin/Assignment/add" class="btn btn-success btn-block"
+									th:text="#{message.savequestion.footer}"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</article>
+
+	 <th:block th:include="/../common/_footer"></th:block>    
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+		 <script type="text/javascript" th:if="${successok}">
+		$('#myModal').modal('show')
+	</script>
+	
+	 <script type="text/javascript" th:if="${successfail}">
+		$('#myModal1').modal('show')
+	</script>
+</body>
+</html>

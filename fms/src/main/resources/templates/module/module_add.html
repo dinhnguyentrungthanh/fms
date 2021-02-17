@@ -1,0 +1,257 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+<title>Title</title>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="../../css/css.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!-- 	<script src="https://code.jquery.com/jquery-1.9.1.js"></script> -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style type="text/css">
+		.modal-confirm {		
+			color: #636363;
+			width: 400px;
+		}
+		.modal-confirm .modal-content {
+			padding: 20px;
+			border-radius: 5px;
+			border: none;
+			text-align: center;
+			font-size: 14px;
+		}
+		.modal-confirm .modal-header {
+			border-bottom: none;   
+			position: relative;
+		}
+		.modal-confirm h4 {
+			text-align: center;
+			font-size: 26px;
+			margin: 30px 0 -10px;
+		}
+		.modal-confirm .close {
+			position: absolute;
+			top: -5px;
+			right: -2px;
+		}
+		.modal-confirm .modal-body {
+			color: #999;
+		}
+		.modal-confirm .modal-footer {
+			border: none;
+			text-align: center;		
+			border-radius: 5px;
+			font-size: 13px;
+			padding: 30px 15px 2px;
+			margin-left: 90px;
+		}	
+		.modal-confirm .icon-box {
+			width: 80px;
+			height: 80px;
+			margin: 0 auto;
+			border-radius: 50%;
+			z-index: 9;
+			text-align: center;
+			border: 3px solid #82ce34;
+		}
+		.modal-confirm .icon-box i {
+			color: #82ce34;
+			font-size: 46px;
+			display: inline-block;
+			margin-top: 13px;
+		}
+		.modal-confirm .btn, .modal-confirm .btn:active {
+			color: #fff;
+			border-radius: 4px;
+			background:blue;
+			text-decoration: none;
+			transition: all 0.4s;
+			line-height: normal;
+			min-width: 120px;
+			border: none;
+			min-height: 40px;
+			border-radius: 3px;
+			margin: 0 5px;
+		}
+		.modal-confirm .btn-secondary {
+			background: #c1c1c1;
+		}
+		.modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus {
+			background: #a8a8a8;
+		}
+		.modal-confirm .btn-danger {
+			background: #f15e5e;
+		}
+		.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+			background: #ee3535;
+		}
+		.trigger-btn {
+			display: inline-block;
+			margin: 100px auto;
+		}
+	</style>
+</head>
+<body>
+	<th:block th:include="/common/_header"></th:block> 
+	<article style="padding: 15px;">
+		<form th:object="${module}" th:action="@{/admin/module_save}"  method="post" id="form">
+			<div style="width: 350px; margin: auto; margin: auto;">
+				<h3>Add Module List</h3>
+				<div class="form-group">
+					<label th:for="ModuleName">Module Name</label><br> 
+					<input type="text" th:field="*{moduleName}" class="form-control" id="ModuleName">
+					<span th:if="${#fields.hasErrors('moduleName')}" th:errors="*{moduleName}" style="color:red;" id="modulename"></span>
+					<span id="modulename" style="color: red"></span>
+				</div>
+				<div class="form-group">
+					<label th:for="StartTime">Start date</label><br> 
+					<input type="date" th:field="*{startTime}" class="form-control" id="StartDate">
+					<span th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}" style="color:red;" id="startdate"></span>
+					<span id="startdate" style="color: red"></span>
+				</div>
+				<div class="form-group">
+					<label th:for="EndTime">End Date</label><br> 
+					<input type="date" th:field="*{endTime}" class="form-control" id="EndDate">
+					<span th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}" style="color:red;" id="enddate"></span>
+					<span id="enddate" style="color: red"></span>
+				</div>
+				<div class="form-group">
+					<label th:for="Admin.username">Admin ID</label><br> 
+					<select th:field="*{Admin.username}" class="form-control">
+						<option value=""></option>
+						<option th:each="admin : ${admins}" th:text="${admin.username}" th:value="${admin.username}" />
+					</select>
+				</div>
+				<div class="form-group">
+					<label th:for="Feedback.FeedbackID">FeedBack Title</label><br> 
+					<select th:field="*{Feedback.FeedbackID}" class="form-control">
+						<option value=""></option>
+						<option th:each="feedback : ${feedbacks}" th:text="${feedback.Title}" th:value="${feedback.FeedbackID}" />
+					</select>
+				</div>
+				<div class="form-group">
+					<label th:for="FeedbackStartTime">FeedBack Start Date</label><br> 
+					<input type="datetime-local" th:field="*{feedbackStartTime}" class="form-control" id="FeedbackStartDate">
+					<span id="feedbackstartdate" style="color: red"></span>
+				</div>
+				<div class="form-group">
+					<label th:for="FeedbackEndTime">FeedBack End Date</label><br> 
+					<input type="datetime-local" th:field="*{feedbackEndTime}" class="form-control" id="FeedbackEndDate">
+					<span id="feedbackenddate" style="color: red"></span>
+				</div>
+
+				<div class="form-group">
+					<a href="/admin/module_index" class="btn btn-default" style="background-color: darkorange; color: white; font-size: 19px">Back</a>
+					<button type="submit" class="btn btn-default" style="background-color: darkorange; color: white; font-size: 19px">Save</button>
+				</div>
+			</div>
+		</form>
+		<!-- Modal -->
+		<div id="myModal" class="modal fade">
+			<div class="modal-dialog modal-confirm">
+				<div class="modal-content">
+					<div class="modal-header flex-column">
+						<div class="icon-box">
+							<i class="material-icons">&#xE876;</i>
+						</div>
+						<h4 class="modal-title w-100" th:text="#{message.savemodule.title}"></h4>
+						<div class="modal-footer justify-content-center">
+							<a href="/admin/module_index" class="btn btn-success btn-block" th:text="#{message.savemodule.footer}"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+	</article>
+	<th:block th:include="/common/_footer"></th:block>
+	
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script type="text/javascript" th:if="${successok}">
+		$('#myModal').modal('show')
+	</script>
+	<script>
+		$("#ModuleName").change(function(){
+			var moduleName = document.getElementById("ModuleName").value;
+			if(moduleName != ""){
+				document.getElementById("modulename").innerHTML = "";
+			}
+		});
+		
+		$("#StartDate").change(function () {
+		    var startDate = document.getElementById("StartDate").value;
+		    var endDate = document.getElementById("EndDate").value;
+		    var today = new Date();
+		    
+		    if ((Date.parse(startDate) <= Date.parse(today))) {
+		        document.getElementById("startdate").innerHTML = "Please choose start date after now date";
+		        $("#StartDate").val("");
+		    }else if ((Date.parse(endDate) <= Date.parse(startDate))) {
+		        document.getElementById("startdate").innerHTML = "Please choose start date before end date";
+		        $("#StartDate").val("");
+		        $("#EndDate").val("");
+		    }
+		    else{
+		    	document.getElementById("startdate").innerHTML = "";
+		    }
+		}); 
+		    
+	    $("#EndDate").change(function () {
+		    var startDate = document.getElementById("StartDate").value;
+		    var endDate = document.getElementById("EndDate").value;
+		    var today = new Date();
+		    
+ 		    if ((Date.parse(endDate) <= Date.parse(today))) {
+		        document.getElementById("enddate").innerHTML = "Please choose end date after now date";
+		        $("#EndDate").val("");
+		    } else if ((Date.parse(endDate) <= Date.parse(startDate))) {
+		        document.getElementById("enddate").innerHTML = "Please choose end date after start date";
+		        $("#EndDate").val("");
+		    }else{
+		    	document.getElementById("enddate").innerHTML = "";
+		    }
+		}); 
+	    
+	    $("#FeedbackStartDate").change(function () {
+		    var feedbackStartDate = document.getElementById("FeedbackStartDate").value;
+		    var feedbackEndDate = document.getElementById("FeedbackEndDate").value;
+		    var today = new Date();
+		    
+		    if ((Date.parse(feedbackStartDate) <= Date.parse(today))) {
+		        document.getElementById("feedbackstartdate").innerHTML = "Please choose Feedback start date after now date";
+		        $("#FeedbackStartDate").val("");
+		    }else if ((Date.parse(feedbackEndDate) <= Date.parse(feedbackStartDate))) {
+		        document.getElementById("feedbackstartdate").innerHTML = "Please choose Feedback start date before Feedback end date";
+		        $("#FeedbackStartDate").val("");
+		        $("#FeedbackEndDate").val("");
+		    }else{
+		    	document.getElementById("feedbackstartdate").innerHTML = "";
+		    }
+		}); 
+	    
+	    $("#FeedbackEndDate").change(function () {
+		    var feedbackStartDate = document.getElementById("FeedbackStartDate").value;
+		    var feedbackEndDate = document.getElementById("FeedbackEndDate").value;
+		    var today = new Date();
+		    
+ 		    if ((Date.parse(feedbackEndDate) <= Date.parse(today))) {
+		        document.getElementById("feedbackenddate").innerHTML = "Please choose Feedback end date after now date";
+		        $("#FeedbackEndDate").val("");
+		    } else if ((Date.parse(feedbackEndDate) <= Date.parse(feedbackStartDate))) {
+		        document.getElementById("feedbackenddate").innerHTML = "Please choose Feedback end date after Feedback start date";
+		        $("#FeedbackEndDate").val("");
+		    }else{
+		    	document.getElementById("feedbackenddate").innerHTML = "";
+		    }
+		}); 
+	</script>	
+</body>
+</html>

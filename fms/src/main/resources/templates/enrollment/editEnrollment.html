@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en"
+	xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<title>Enrollment Edit</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="../css/enrollment.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!--sweet alert-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script type="text/javascript" src="../css/javascript.js"></script>
+<style>
+.modal-confirm {
+	color: #636363;
+	width: 400px;
+}
+
+.modal-confirm .modal-content {
+	margin-top: 180px;
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+	text-align: center;
+	font-size: 14px;
+}
+
+.modal-confirm .modal-header {
+	border-bottom: none;
+	position: relative;
+	padding: 20px 20px 0px;
+}
+
+.modal-confirm h4 {
+	text-align: center;
+	font-size: 26px;
+	margin: 30px 0 -10px;
+}
+
+.modal-confirm .close {
+	position: absolute;
+	top: -5px;
+	right: -2px;
+}
+
+.modal-confirm .modal-body {
+	color: #999;
+	padding: 0px;
+	margin-top: 7px;
+}
+
+.modal-confirm .modal-footer {
+	border: none;
+	text-align: center;
+	border-radius: 5px;
+	font-size: 15px;
+	padding: 25px 10px;
+	width: 35%;
+	margin-left: 100px;
+}
+
+.modal-confirm .icon-box {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 50%;
+	z-index: 9;
+	text-align: center;
+	border: 3px solid #82ce34;
+}
+
+.modal-confirm .icon-box i {
+	color: #82ce34;
+	font-size: 46px;
+	display: inline-block;
+	margin-top: 13px;
+}
+
+.modal-confirm .btn, .modal-confirm .btn:active {
+	color: #fff;
+	border-radius: 4px;
+	background: blue;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	min-width: 120px;
+	border: none;
+	min-height: 40px;
+	border-radius: 3px;
+	margin: 0 5px;
+	margin-left: 90px;
+}
+
+
+.modal-confirm .btn-secondary {
+	background: #c1c1c1;
+}
+
+.modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus
+	{
+	background: #a8a8a8;
+}
+
+.modal-confirm .btn-danger {
+	background: #f15e5e;
+}
+
+.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+	background: #ee3535;
+}
+
+.trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
+}
+
+.modal-confirm .modal-footerr {
+	border: none;
+	text-align: center;
+	border-radius: 5px;
+	font-size: 13px;
+	padding: 15px 15px 2px;
+}
+
+.modal-confirm .icon-boxx {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 50%;
+	z-index: 9;
+	text-align: center;
+	border: 3px solid #f15e5e;
+}
+
+.modal-confirm .icon-boxx i {
+	color: #f15e5e;
+	font-size: 46px;
+	display: inline-block;
+	margin-top: 13px;;
+}
+
+.dataTables_info {
+	display: none;
+}
+
+.dataTables_length {
+	display: none;
+}
+
+.modal-footer.btn_modal {
+	width: 100%;
+	background-color: blue;
+	color: #fff;
+	border-radius: 3px;
+	height: 40px;
+}
+</style>
+
+</head>
+<body>
+	<th:block th:include="/common/_header"></th:block>
+
+	<article style="padding: 15px;">
+		<form th:object="${enrollment}" th:action="@{saveUpdate}"
+			method="post">
+
+			<input type="hidden" name="classID" th:field="*{classID}">
+
+
+			<div style="width: 350px; margin: auto; margin: auto;">
+				<h3 class="text-center">Edit Enrollment</h3>
+				<div class="form-group">
+					<label>Trainee ID</label><br> <input type="text"
+						name="TraineeID" th:field="*{traineeID.username}"
+						class="form-control" required readonly>
+				</div>
+				<div class="form-group">
+					<label>Trainee Name</label><br> <input type="text"
+						name="TraineeName" th:field="*{traineeID.name}"
+						class="form-control" required readonly>
+				</div>
+
+				<!-- Cbx -->
+				<label>Class Name</label><br> <select class="form-control"
+					onchange="selected(this)" id="choise" th:field="*{classID}">
+					<option value="" id="product" var="menu"
+						th:each="class : ${classes}" th:value="${class.classID}"
+						th:text="${class.className}"></option>
+				</select> <input type="hidden" id='newClassID' name="newClassID"
+					th:value="*{classID.classID}" /> <input type="hidden"
+					id='oldClassID' name="oldClassID" th:value="*{classID.classID}" />
+				<input type="hidden" id='username' name="username"
+					th:value="*{traineeID.username}" />
+				<div class="form-group">
+					<br>
+					<button type="submit" class="btn"
+						style="background-color: darkorange; color: white; font-size: 19px; float: right"
+						value="Save">Save</button>
+					<a style="float: right; padding: 7.8px" class="btn" href="./cancel">Back</a>
+				</div>
+
+				<!-- Modal  OK-->
+				<div th:id="myModal" class="modal fade" data-backdrop="static"
+					data-keyboard="false">
+					<div class="modal-dialog modal-confirm">
+						<div class="modal-content">
+							<div class="modal-header flex-column">
+								<div class="icon-box">
+									<i class="material-icons">&#xE876;</i>
+								</div>
+								<h4 class="modal-title w-100"
+									th:text="#{message.saveenrollment.title}"></h4>
+								<div class="modal-footer justify-content-center">
+
+									<a href="/admin/enrollment" class="btn_modal"
+										style="width: 100%; background-color: blue; color: #fff; border-radius: 3px; height: 40px; padding-top: 9px;"
+										th:text="#{message.saveenrollment.footer}"></a>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Modal Fail -->
+				<div th:id="myModal1" class="modal fade" data-backdrop="static"
+					data-keyboard="false">
+					<div class="modal-dialog modal-confirm">
+						<div class="modal-content">
+							<div class="modal-header flex-column">
+								<div style="margin: 0px 85px;">
+									<img width="60%"
+										src="https://www.flaticon.com/svg/static/icons/svg/972/972545.svg">
+								</div>
+
+								<h4 class="modal-title w-100"
+									th:text="#{message.saveenrollmentfail.title}"></h4>
+								<div class="modal-footer justify-content-center">
+									<a
+										th:href="@{/admin/edit?enrollmentID(traineeID=${enrollment.traineeID.username},classID=${enrollment.classID.classID})}"
+										class="btn_modal" style="width: 100%; background-color: blue; color: #fff; border-radius: 3px; height: 40px; padding-top: 9px;"
+										th:text="#{message.saveenrollment.footer}"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</form>
+	</article>
+	<th:block th:include="/common/_footer"></th:block>
+</body>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+
+<script type="text/javascript" th:if="${successok}">
+		$('#myModal').modal('show')
+	</script>
+
+<script type="text/javascript" th:if="${successfail}">
+		$('#myModal1').modal('show')
+	</script>
+
+<script>
+	function selected(obj) {
+		var options = obj.children;
+		dem = 1;
+		for (var i = 0; i < options.length; i++) {
+			if (options[i].selected) {
+				products = options[i].value;
+				console.log(products)
+				$('#newClassID').val(products);
+			}
+		}
+	}
+</script>
+</html>

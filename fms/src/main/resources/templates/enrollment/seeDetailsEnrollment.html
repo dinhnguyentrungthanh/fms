@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en " xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Enrollment Details</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="../css/enrollment.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script type="text/javascript" src="../css/javascript.js"></script>
+</head>
+<body>
+	 <th:block th:include="/common/_header"></th:block>
+	<article style="padding: 15px">
+		<form th:object="${enrollment}" method="post">
+			<fieldset class="container" 
+				style="line-height: 35px; width: 70%; margin: auto;">
+				<legend class="legend"><b> Trainee Infomation </b></legend>
+				<div class="row">
+				<div class="col-7">
+					<p>
+						<b>Trainee ID:</b> <span name="TraineeID"
+							th:text="*{traineeID.username}"></span>
+					<p>
+						<b>Trainee Name:</b> <span type="text" name="TraineeName"
+							th:text="*{traineeID.name}"></span>
+					<p>
+						<b>Email:</b>
+					<span type="text" name="email" th:text="*{traineeID.email}"></span>
+				
+				</div>
+				<div class="col-5">
+					<p>
+						<b>Phone:</b> <span type="text" name="phone"
+							th:text="*{traineeID.phone}"></span>
+					<p>
+						<b>Address:</b> <span name="address"
+							th:text="*{traineeID.address}"></span>
+				</div>
+				</div>
+			</fieldset>
+			<br>
+			<fieldset class="container"
+				style="line-height: 35px; width: 70%; margin: auto;">
+				<legend class="legend"><b> Class Infomation </b></legend>
+				<div class="row">
+				<div class="col-7">
+					<p>
+						<b>Class ID:</b>
+					<span type="text" name="ClassID" th:text="*{classID.classID}"></span>
+				
+					<p>
+						<b>Class Name:</b>
+					<span type="text" name="Classname" th:text="*{classID.ClassName}"></span>
+				
+					<p>
+						<b>Capaticy:</b> <span type="text" name="ClassID"
+							th:text="*{classID.Capacity}"></span>
+				</div>
+				<div class="col-5">
+					<p>
+						<b>Start:</b> <span type="text" name="TimeStart"
+							th:text="*{classID.StartTime}"></span>
+					<p>
+						<b>End:</b> <span type="text" name="TimeEnd"
+							th:text="*{classID.EndTime}"></span>
+				</div>
+				</div>
+				
+			</fieldset>
+			
+							<a style="float:right; margin-right:50px" href="./cancel" class="btn">Back </a>
+		</form>
+	</article>
+	<th:block th:include="/common/_footer"></th:block> 
+</body>
+</html>

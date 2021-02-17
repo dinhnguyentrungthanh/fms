@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en " xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../css/css.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<style type="text/css">
+.modal-confirm {		
+	color: #636363;
+	width: 400px;
+}
+.modal-confirm .modal-content {
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+	text-align: center;
+	font-size: 14px;
+}
+.modal-confirm .modal-header {
+	border-bottom: none;   
+	position: relative;
+}
+.modal-confirm h4 {
+	text-align: center;
+	font-size: 26px;
+	margin: 30px 0 -10px;
+}
+.modal-confirm .close {
+	position: absolute;
+	top: -5px;
+	right: -2px;
+}
+.modal-confirm .modal-body {
+	color: #999;
+}
+.modal-confirm .modal-footer {
+	border: none;
+	text-align: center;		
+	border-radius: 5px;
+	font-size: 13px;
+	padding: 30px 15px 2px;
+	margin-left: 85px;
+}	
+.modal-confirm .icon-box {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 50%;
+	z-index: 9;
+	text-align: center;
+	border: 3px solid #82ce34;
+}
+.modal-confirm .icon-box i {
+	color: #82ce34;
+	font-size: 46px;
+	display: inline-block;
+	margin-top: 13px;
+}
+.modal-confirm .btn, .modal-confirm .btn:active {
+	color: #fff;
+	border-radius: 4px;
+	background:blue;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	min-width: 120px;
+	border: none;
+	min-height: 40px;
+	border-radius: 3px;
+	margin: 0 5px;
+}
+.modal-confirm .btn-secondary {
+	background: #c1c1c1;
+}
+.modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus {
+	background: #a8a8a8;
+}
+.modal-confirm .btn-danger {
+	background: #f15e5e;
+}
+.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+	background: #ee3535;
+}
+.trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
+}
+</style>
+
+  </head>
+  <body>
+
+<header>
+    <div>
+        <img class="logo" src="../image/r2s.com_.vn_.png" />
+    </div><br>
+    <div class="menu-grid">
+        <div>
+            <nav style="background-color: darkorange">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            HOMEPAGE </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            ASSIGNMENT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">CLASS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            COURSE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            ENROLLMENT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            FEEDBACK</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            RESULT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            QUESTION</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            CONTACT</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div>
+            <nav style="background-color: darkorange">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">YOURNAME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">LOGOUT</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<article style="padding: 15px;">
+    
+    <div style="width: 350px;margin:auto;margin: auto;">
+    <form th:object="${question}" th:action="@{saveQuestion}" action="#" method="post" onsubmit="return checkValidated()">
+        <h3>Add Question</h3>
+        <div class="form-group">
+          <label th:text="TopicName" th:for="topic.topicID"></label><br>
+           <select class="browser-default custom-select" style="border: 1px solid darkorange" th:field="*{topic.topicID}">
+        	<option th:each="topics : ${topics}" th:text="${topics.topicName}" th:value="${topics.topicID}"></option>
+    	</select>
+        </div>
+        <div class="form-group">
+          <label th:text="QuestionContent" th:for="questionContent"></label><br>
+          <textarea   th:field="*{questionContent}" th:errorclass="field-error" cols="35" rows="10"></textarea><br>
+           <span style="color:darkorange;" th:if="${#fields.hasErrors('questionContent')}" th:errors="*{questionContent}"></span>
+          <!-- <div class="error">
+      			<span style="color: red" id="errorQuestionContent"></span>
+      	  </div> -->
+        </div>
+
+        <div class="form-group">
+            <a href="/admin/question"
+                 class="btn btn-default" style="background-color: darkorange;color: white;font-size: 19px">Back
+            </a>    
+            <button type="submit" class="btn btn-default" style="background-color: darkorange;color: white;font-size: 19px" value="Save">Save
+            </button>
+        </div>   
+         </form>
+        <!-- Modal -->
+				<div id="myModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+					<div class="modal-dialog modal-confirm">
+						<div class="modal-content">
+						<div class="modal-header flex-column">
+								<div class="icon-box">
+									<i class="material-icons">&#xE876;</i>
+								</div>
+								<h4 class="modal-title w-100" th:text="#{message.savequestion.title}"></h4>
+							<div class="modal-footer justify-content-center">
+								<a href="/admin/question" class="btn btn-success btn-block" th:text="#{message.savequestion.footer}"></a>
+							</div>
+						</div>
+						</div>
+					</div>
+				</div> 
+      </div>        
+ 	
+</article>
+<footer>
+    <div class="grid">
+        <div>
+            <p>We are ready for challenge</p>
+            <p>vnhung1903@gmail.com</p>
+        </div>
+        <div>
+            <p>Công viên phần mềm quang Trung</p>
+            <p>+84776629411</p>
+        </div>
+        <div>
+            <p>We are always looking for talent</p>
+            <p>vinhndps08838@gmail.com</p>
+        </div>
+        <div></div>
+        <div class="footer-icon">
+            <i class="fa fa-twitter" style="padding:10px;font-size:20px;color:white"></i>
+            <i class="fa fa-facebook-f" style="padding:10px;font-size:20px;color:white"></i>
+            <i class="fa fa-google-plus" style="padding:10px;font-size:20px;color:white"></i>
+        </div>
+    </div>
+</footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:if="${successok}">
+		$('#myModal').modal('show')
+	</script>
+   <!--  <script type="text/javascript">
+
+	var checkValidated = function(){
+		var questionContent  = $('#questionContent').val();
+		
+		var checkQuestionContent = false;
+		
+		  if(questionContent.trim().length > 0){
+			$('#errorQuestionContent').text('');
+			$('#questionContent').removeClass('error');	
+			checkQuestionContent = true;
+		}else{
+			$('#questionContent').addClass('error');
+			$('#errorQuestionContent').text('Please enter the question');
+		} 
+
+		if(checkQuestionContent){
+			return true;
+		}else{
+			return false;
+		}
+		}	
+</script> -->
+  </body>
+</html>

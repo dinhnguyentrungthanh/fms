@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en " xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Title</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="../../../css/css.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<!--sweet alert-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script type="text/javascript" src="../css/javascript.js"></script>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.modal-confirm {
+	color: #636363;
+	width: 400px;
+}
+
+.modal-confirm .modal-content {
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+	text-align: center;
+	font-size: 14px;
+}
+
+.modal-confirm .modal-header {
+	border-bottom: none;
+	position: relative;
+}
+
+.modal-confirm h4 {
+	text-align: center;
+	font-size: 26px;
+	margin: 30px 0 -10px;
+}
+
+.modal-confirm .close {
+	position: absolute;
+	top: -5px;
+	right: -2px;
+}
+
+.modal-confirm .modal-body {
+	color: #999;
+}
+
+.modal-confirm .modal-footer {
+	border: none;
+	text-align: center;
+	border-radius: 5px;
+	font-size: 13px;
+	padding: 30px 15px 25px;
+}
+
+.modal-confirm .icon-box {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 50%;
+	z-index: 9;
+	text-align: center;
+	border: 3px solid #f15e5e;
+}
+
+.modal-confirm .icon-box i {
+	color: #f15e5e;
+	font-size: 46px;
+	display: inline-block;
+	margin-top: 13px;
+}
+
+.modal-confirm .btn, .modal-confirm .btn:active {
+	color: #fff;
+	border-radius: 4px;
+	background: blue;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	min-width: 120px;
+	border: none;
+	min-height: 40px;
+	border-radius: 3px;
+	margin: 0 5px;
+	margin-left: 90px;
+}
+
+.modal-confirm .btnn, .modal-confirm .btn:active {
+	color: #fff;
+	border-radius: 4px;
+	background: blue;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	min-width: 120px;
+	border: none;
+	min-height: 40px;
+	border-radius: 3px;
+	margin: 0 5px;
+}
+
+.modal-confirm .btn-secondary {
+	background: #c1c1c1;
+}
+
+.modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus
+	{
+	background: #a8a8a8;
+}
+
+.modal-confirm .btn-danger {
+	background: #f15e5e;
+}
+
+.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+	background: #ee3535;
+}
+
+.trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
+}
+</style>
+<style type="text/css">
+.modal-confirmm {
+	color: #636363;
+	width: 400px;
+}
+
+.modal-confirmm .modal-content {
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+	text-align: center;
+	font-size: 14px;
+}
+
+.modal-confirmm .modal-header {
+	border-bottom: none;
+	position: relative;
+}
+
+.modal-confirmm h4 {
+	text-align: center;
+	font-size: 26px;
+	margin: 30px 0 -10px;
+}
+
+.modal-confirmm .close {
+	position: absolute;
+	top: -5px;
+	right: -2px;
+}
+
+.modal-confirmm .modal-body {
+	color: #999;
+}
+
+.modal-confirmm .modal-footerr {
+	border: none;
+	text-align: center;		
+	border-radius: 5px;
+	font-size: 13px;
+	padding: 30px 15px 2px;
+	margin-left: 85px;
+}
+
+.modal-confirmm .icon-boxx {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 50%;
+	z-index: 9;
+	text-align: center;
+	border: 3px solid #82ce34;
+}
+
+.modal-confirmm .icon-boxx i {
+	color: #82ce34;
+	font-size: 46px;
+	display: inline-block;
+	margin-top: 13px;
+}
+
+.modal-confirmm .btn, .modal-confirmm .btn:active {
+	color: #fff;
+	border-radius: 4px;
+	background:blue;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	min-width: 120px;
+	border: none;
+	min-height: 40px;
+	border-radius: 3px;
+	margin: 0 5px;
+}
+
+.modal-confirmm .btn-secondary {
+	background: #c1c1c1;
+}
+.modal-confirmm .btn-secondary:hover, .modal-confirm .btn-secondary:focus {
+	background: #a8a8a8;
+}
+.modal-confirmm .btn-danger {
+	background: #f15e5e;
+}
+.modal-confirmm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+	background: #ee3535;
+}
+.trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
+}
+
+.dataTables_info {
+	display: none;
+}
+
+.dataTables_length {
+	display: none;
+}
+</style>
+</head>
+<body>
+	<th:block th:include="/common/_header"></th:block>
+	<article style="padding: 15px" class="container">
+		<span>
+			<h4>Question List</h4>
+		</span>
+		<br>
+		<!-- 		<div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${success}">
+			<span th:text="${success}"></span>
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div> -->
+		<button class="btn btn-default"
+			style="color: white; background-color: darkorange">
+			<a href="/admin/addQuestion">Add <i class="fa fa-plus" aria-hidden="true"></i></a>
+		</button>
+		<br>
+		<span>
+			<b>Topic Name:</b>
+		</span>
+		<br>
+		<div>
+			<select class="browser-default custom-select"
+				style="border: 1px solid darkorange" id="keyword" name="keyword"
+				th:value="${keyword}">
+				<option value="0">Danh Sách</option>
+				<option th:each="topic : ${topics}" th:text="${topic.topicName}"
+					th:value="${topic.topicID}"></option>
+			</select>
+		</div>
+		<br>
+		<table class="table table-bordered" id="tablemain">
+			<thead>
+				<th>TopicID</th>
+				<th>Topic Name</th>
+				<th>Question ID</th>
+				<th>Question Content</th>
+				<th class="action">Actions</th>
+			</thead>
+			<tbody>
+				<tr th:each="question : ${questions}">
+					<td th:text="${question.topic.topicID}"></td>
+					<td th:text="${question.topic.topicName}"></td>
+					<td th:text="${question.questionID}"></td>
+					<td th:text="${question.questionContent}"></td>
+					<td class="action">
+						<a
+							th:href="@{/admin/editQuestion?questionID={questionID}(questionID=${question.questionID})}">
+							<button class="btn">
+								<span class="fa fa-edit" style="float: left"></span>
+							</button>
+						</a>
+							<button class="btn btn-delete" th:attr="data-id=${question.questionID}">
+								<span class="fa fa-trash" ></span>
+							</button>
+					</td>
+					<!-- Modal HTML -->
+					<div th:id="'myModal'+ ${question.questionID} " class="modal fade" data-backdrop="static" data-keyboard="false">
+						<div class="modal-dialog modal-confirm">
+							<div class="modal-content">
+								<div class="modal-header flex-column">
+									<div class="icon-box">
+										<i class="material-icons ">&#xe645;</i>
+									</div>
+									<h4 class="modal-title w-100"
+										th:text="#{message.deletequestion.title}"></h4>
+								</div>
+								<div class="modal-body">
+									<p th:text="#{message.deletequestion.body}"></p>
+								</div>
+								<div class="modal-footer justify-content-center">
+									<a id="alerts"
+										th:href="@{/admin/deleteQuestion?questionID={questionID}(questionID=${question.questionID})}">
+										<button type="button" class="btnn"
+											th:text="#{message.deletequestion.footeryes}">></button>
+									</a>
+									<button type="button" data-dismiss="modal"
+										class="btnn btn-danger"
+										th:text="#{message.deletequestion.footerno}">></button>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Modal HTML -->
+					<div th:id="'myModalll'+ ${question.questionID}" class="modal fade" data-backdrop="static" data-keyboard="false">
+						<div class="modal-dialog modal-confirm">
+							<div class="modal-content">
+								<div class="modal-header flex-column">
+									<div class="icon-box">
+										<!-- <i class="material-icons">&#xE5CD;</i> -->
+										<i class="material-icons ">&#xe645;</i>
+									</div>
+									<h4 class="modal-title w-100"
+										th:text="#{message.deletequestion.title}"></h4>
+								</div>
+								<div class="modal-body">
+									<p th:text="#{message.deletedangengerquestion.body}"></p>
+								</div>
+								<div class="modal-footer justify-content-center">
+									<a id="alerts"
+										th:href="@{/admin/deleteQuestion?questionID={questionID}(questionID=${question.questionID})}">
+										<button type="button" class="btnn"
+											th:text="#{message.deletequestion.footeryes}">></button>
+									</a>
+									<button type="button" data-dismiss="modal"
+										class="btnn btn-danger"
+										th:text="#{message.deletequestion.footerno}">></button>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</tr>
+			</tbody>
+		</table>
+		<div style="display: none;" id="facetable">
+			<table class="table table-bordered" id="tablforeign">
+				<thead>
+					<th>TopicID</th>
+					<th>Topic Name</th>
+					<th>Question ID</th>
+					<th>Question Content</th>
+					<th>Actions</th>
+				</thead>
+				<tbody id="table">
+				</tbody>
+			</table>
+		</div>
+		<div id="pagination">
+			<ul class="pagination">
+				<li class="page-item">
+					<a class="page-link"  th:if="${currentPage >1}"
+						th:href="@{'/admin/question/page/' + ${currentPage - 1}}">Previous</a>
+				</li>
+				<li class="page-item"
+					th:each="i: ${#numbers.sequence(1, totalPages)}">
+					<a class="page-link" th:if="${currentPage != i}"
+						th:href="@{'/admin/question/page/' + ${i}}">[[${i}]]</a>
+					<span class="page-link" th:unless="${currentPage != i}">[[${i}]]</span>
+				</li>
+				<li class="page-item">
+					<a class="page-link" th:if="${currentPage < totalPages}"
+						th:href="@{'/admin/question/page/' + ${currentPage + 1}}">Next</a>
+					<span class="page-link" th:unless="${currentPage < totalPages}">Next</span>
+				</li>
+			</ul>
+		</div>
+
+	</article>
+	<th:block th:include="/common/_footer"></th:block>
+	<!-- Modal -->
+	<div id="myModall" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-confirmm">
+			<div class="modal-content">
+				<div class="modal-header flex-column">
+					<div class="icon-boxx">
+						<i class="material-icons">&#xE876;</i>
+					</div>
+					<h4 class="modal-title w-100"
+						th:text="#{message.deletsuccessquestion.title}"></h4>
+					<div class="modal-footerr justify-content-center">
+						<a href="/admin	/question" class="btn btn-success btn-block"
+							th:text="#{message.savequestion.footer}"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css"
+		href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" th:if="${successok}">
+		$('#myModall').modal('show')
+	</script>
+	
+	<script type="text/javascript">	
+
+ 	$('.btn-delete').on('click', function(){
+ 			     var id = $(this).data('id');
+				 var settings = {
+				  "url": "http://localhost:8080/api/feedbackquestion/list/search?questionID="+ id,
+				  "method": "GET",
+				  "timeout": 0,
+				};
+			$.ajax(settings)
+			.then(function (response) {
+				var fqid=  response[0].id.questionID;
+				 //console.log(fqid)
+				 $('#myModalll'+ id).modal('show');
+				})
+			.catch(function (error) {
+				 $('#myModal'+ id).modal('show');
+				
+				//alert("a");
+			});
+			
+	}) 
+		</script>
+	
+	<script>
+
+	
+		$('#keyword').on('change', function($event) {
+			var topic = $event.target.value;
+			console.log(topic)
+			if(topic == 0){
+				window.location.href= "http://localhost:8080/admin/question"
+			}else{
+				$("#facetable").show();
+				$("#tablemain").hide();
+				$("#pagination").hide();
+			}
+ 			$.ajax({
+				type : 'GET',
+				url : `/api/question/list/search?topicID=${topic}`,
+				beforeSend : function() {
+					console.log('before sending')
+				},
+				success : renderToTable,
+				fail : function(error) {
+					console.log('error', error)
+				},
+			}); 
+		});
+
+ 		function renderToTable(results) {
+			if (!results.length) {
+				$('#table').html(`<tr><td colspan="5"><b style='text-align: center;color: red'>Not have any items</b></td></tr>`)
+				return;
+			}
+			var block = results.map(question => {
+				
+				return `
+					<tr>
+						<td>${question.topic.topicID}</td>
+						<td>${question.topic.topicName}</td>
+						<td>${question.questionID}</td>
+						<td>${question.questionContent}</td>
+						<td class="actionn">
+							<a
+								href="/admin/editQuestion?questionID=${question.questionID}">
+								<button class="btn">
+									<span class="fa fa-edit" style="margin: auto 10px;"></span>
+								</button>
+							</a>
+							<a href="#myModal" data-toggle="modal">
+							<button class="btn btn-delete" th:attr="data-id=${question.questionID}">
+							<span class="fa fa-trash" ></span>
+							</button>>
+							</a>
+						</td>
+					</tr>`;
+			})
+			$('#table').html(block),
+			$('#tablforeign').DataTable({
+				retrieve: true,
+ 	        	"pageLength": 3
+ 	        });
+ 	        
+		}
+	</script>
+</body>
+</html>

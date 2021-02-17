@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en " xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org"
+ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+ >
+<head>
+<title>Enrollment List</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="../../../../css/enrollment.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+<style>
+.modal-confirm {
+	color: #636363;
+	width: 400px;
+}
+
+.modal-confirm .modal-content {
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+	text-align: center;
+	font-size: 14px;
+}
+
+.modal-confirm .modal-header {
+	border-bottom: none;
+	position: relative;
+	padding: 20px 20px 0px;
+}
+
+.modal-confirm h4 {
+	text-align: center;
+	font-size: 26px;
+	margin: 30px 0 -10px;
+}
+
+.modal-confirm .close {
+	position: absolute;
+	top: -5px;
+	right: -2px;
+}
+
+.modal-confirm .modal-body {
+	color: #999;
+	padding: 0px;
+	margin-top: 7px;
+}
+
+.modal-confirm .modal-footer {
+	border: none;
+	text-align: center;
+	border-radius: 5px;
+	font-size: 15px;
+	padding: 15px 10px;
+}
+
+.modal-confirm .icon-box {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 50%;
+	z-index: 9;
+	text-align: center;
+	border: 3px solid #f15e5e;
+}
+
+.modal-confirm .icon-box i {
+	color: #f15e5e;
+	font-size: 46px;
+	display: inline-block;
+	margin-top: 13px;
+}
+
+.modal-confirm .btnn {
+	color: #fff;
+	border-radius: 4px;
+	background: blue;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	min-width: 120px;
+	border: none;
+	min-height: 40px;
+	border-radius: 3px;
+	margin: 0 5px;
+}
+a.btn.btn_modal {
+	width: 100px;
+	background-color: blue;
+	color: #fff;
+	border-radius: 3px;
+	height: 40px;
+	margin-left: 97px;
+}
+
+.modal-confirm .btn-secondary {
+	background: #c1c1c1;
+}
+
+.modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus
+	{
+	background: #a8a8a8;
+}
+
+.modal-confirm .btn-danger {
+	background: #f15e5e;
+}
+
+.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+	background: #ee3535;
+}
+
+.trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
+}
+
+.modal-confirm .modal-footerr {
+	border: none;
+	text-align: center;
+	border-radius: 5px;
+	font-size: 13px;
+	padding: 15px 15px 2px;
+}
+
+.modal-confirm .icon-boxx {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 50%;
+	z-index: 9;
+	text-align: center;
+	border: 3px solid #82ce34;
+}
+
+.modal-confirm .icon-boxx i {
+	color: #82ce34;
+	font-size: 46px;
+	display: inline-block;
+	margin-top: 13px;;
+}
+
+.dataTables_info {
+	display: none;
+}
+
+.dataTables_length {
+	display: none;
+}
+.custom-select {
+    padding: .375rem 10.75rem .375rem 1.75rem;
+    font-size: 1.5rem;
+
+
+}
+</style>
+</head>
+<body>
+	<th:block th:include="/common/_header"></th:block>
+
+	<aside style="padding: 15px;">
+
+
+		<div class="row">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8">
+				<h3>Enrollment List</h3>
+				<br> 
+				<div class="row">
+				<span> <b>Class Name: </b>
+				</span> 
+				<div>
+					<select class="browser-default custom-select "
+						style="border: 1px solid darkorange" id="keyword" name="keyword"
+						th:value="${keyword}">
+						<option value="0">All</option>
+						<option th:each="class : ${classes}" th:value="${class.classID}"
+							th:text="${class.className}"></option>
+					</select>
+				</div>
+				</div>
+				<br>
+				<table class="table table-bordered" id="tablemain">
+					<thead>
+						<th>Trainee Id</th>
+						<th>Trainee Name</th>
+						<th class="sorting_asc">Class ID</th>
+						<th>Class Name</th>
+						<th class="text-center">Actions</th>
+					</thead>
+					<tbody>
+						<tr th:each="enrollment : ${enrollments}">
+							<td th:text="${enrollment.traineeID.username}"></td>
+							<td th:text="${enrollment.traineeID.name}"></td>
+							<td th:text="${enrollment.classID.classID}"></td>
+							<td th:text="${enrollment.classID.className}"></td>
+							<td class="text-center"><a
+								th:href="@{/admin/seeDetails?enrollmentID(traineeID=${enrollment.traineeID.username},classID=${enrollment.classID.classID})}">
+									<button class="btn">
+										<span class="fa fa-eye"></span>
+									</button>
+							</a> <a
+								th:href="@{/admin/edit?enrollmentID(traineeID=${enrollment.traineeID.username},classID=${enrollment.classID.classID})}">
+									<button class="btn">
+										<span class="fa fa-edit"></span>
+									</button>
+
+							</a> <a th:if="${enrollment.classID.endTime}<${ht}"
+								th:href="'#myModal' + ${enrollment.traineeID.username} + ${enrollment.classID.classID}"
+								data-toggle="modal">
+									<button class="btn">
+										<span class="fa fa-trash"></span>
+									</button>
+							</a> <a th:if="${enrollment.classID.endTime}>${ht}"
+								th:href="'#myModal1' + ${enrollment.traineeID.username} + ${enrollment.classID.classID}"
+								data-toggle="modal">
+									<button class="btn">
+										<span class="fa fa-trash"></span>
+									</button>
+							</a></td>
+
+							<!-- Modal HTML -->
+							<div
+								th:id="'myModal'+  ${enrollment.traineeID.username} + ${enrollment.classID.classID}"
+								class="modal fade" style="padding: 100px 100px 100px;">
+								<div class="modal-dialog modal-confirm">
+									<div class="modal-content">
+										<div class="modal-header flex-column">
+											<div class="icon-box">
+												<!-- <i class="material-icons">&#xE5CD;</i> -->
+												<i class="material-icons ">&#xe645;</i>
+											</div>
+											<h4 class="modal-title w-100"
+												th:text="#{message.deleteenrollment.title}"></h4>
+										</div>
+										<div class="modal-body">
+											<p th:text="#{message.deleteenrollment.body}"></p>
+										</div>
+										<div class="modal-footer justify-content-center">
+											<a
+												th:href="@{/admin/delete?enrollmentID(traineeID=${enrollment.traineeID.username},classID=${enrollment.classID.classID})}">
+												<button type="button" class="btnn"
+													th:text="#{message.deleteenrollment.footeryes}"></button>
+											</a>
+											<button type="button" data-dismiss="modal"
+												class="btnn btn-danger"
+												th:text="#{message.deleteenrollment.footerno}"></button>
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div
+								th:id="'myModal1' + ${enrollment.traineeID.username} + ${enrollment.classID.classID}"
+								class="modal fade" style="padding: 100px 100px 100px;">
+								<div class="modal-dialog modal-confirm">
+									<div class="modal-content">
+										<div class="modal-header flex-column">
+											<div class="icon-box">
+												<!-- <i class="material-icons">&#xE5CD;</i> -->
+												<i class="material-icons ">&#xe645;</i>
+											</div>
+											<h4 class="modal-title w-100"
+												th:text="#{message.deleteenrollment.title}"></h4>
+										</div>
+										<div class="modal-body">
+											<p th:text="#{message.deleteenrollment1.body}"></p>
+										</div>
+										<div class="modal-footer justify-content-center">
+											<a
+												th:href="@{/admin/delete?enrollmentID(traineeID=${enrollment.traineeID.username},classID=${enrollment.classID.classID})}">
+												<button type="button" class="btnn"
+													th:text="#{message.deleteenrollment.footeryes}">></button>
+											</a>
+											<button type="button" data-dismiss="modal"
+												class="btnn btn-danger"
+												th:text="#{message.deleteenrollment.footerno}">></button>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</tr>
+
+					</tbody>
+				</table>
+				<div style="display: none;" id="facetable">
+					<table class="table table-bordered" id="tablforeign">
+						<thead>
+							<th>TraineeID</th>
+							<th>Trainee Name</th>
+							<th>ClassID</th>
+							<th>Class Name</th>
+							<th class="text-center">Actions</th>
+						</thead>
+						<tbody id="table">
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-sm-2"></div>
+
+		<div class="row">
+		<div>
+			<ul class="pagination">
+				<li><a>Tổng số: [[${totalItems}]]</a></li>
+				<li
+					th:class="${currentPage == 1} ? 'page-item disabled' : 'page-item'">
+					<a th:if="${currentPage > 1}"
+					th:href="@{'/admin/enrollment/page/' + ${1}}">First</a> <a
+					th:unless="${currentPage > 1}">First</a>
+				<li>
+				<li
+					th:class="${currentPage == 1} ? 'page-item disabled' : 'page-item'">
+					<a th:if="${currentPage > 1}"
+					th:href="@{'/admin/enrollment/page/' + ${currentPage - 1}}">Previous</a>
+					<a th:unless="${currentPage > 1}">Previous</a>
+				</li>
+				<li th:each="i: ${#numbers.sequence(1, totalPages)}"
+					th:class="${currentPage == i ? 'page-item active' : 'page-item'}">
+					<a th:if="${currentPage != i}"
+					th:href="@{'/admin/enrollment/page/' + ${i}}" th:text="${i}"></a>
+					<a th:unless="${currentPage != i}" th:text="${i}"></a>
+				</li>
+				<li
+					th:class="${currentPage == totalPages} ? 'page-item disabled' : 'page-item'">
+					<a th:if="${currentPage < totalPages}"
+					th:href="@{'/admin/enrollment/page/' + ${currentPage + 1}}">Next</a>
+					<a th:unless="${currentPage < totalPages}">Next</a>
+				</li>
+				<li
+					th:class="${currentPage == totalPages} ? 'page-item disabled' : 'page-item'">
+					<a th:if="${currentPage < totalPages}"
+					th:href="@{'/admin/enrollment/page/' + ${totalPages}}">Last</a> <a
+					th:unless="${currentPage < totalPages}">Last</a>
+				</li>
+			</ul>
+		</div>
+		</div>
+	</aside>
+	<!-- Modal -->
+	<div id="myModall" class="modal fade"
+		style="padding: 100px 100px 100px;">
+		<div class="modal-dialog modal-confirm">
+			<div class="modal-content">
+				<div class="modal-header flex-column">
+					<div class="icon-boxx">
+						<i class="material-icons">&#xE876;</i>
+					</div>
+					<h4 class="modal-title w-100"
+						th:text="#{message.deleteenrollment1.title}"></h4>
+
+					<div class="modal-footer justify-content-center">
+
+						<a href="/admin/enrollment" class="btn btn_modal"
+							th:text="#{message.saveenrollment.footer}"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<th:block th:include="/common/_footer"></th:block>
+	<script type="text/javascript" th:if="${successok}">
+		$('#myModall').modal('show')
+	</script>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css"
+		href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+	<script>
+	
+	
+	
+		$('#keyword').on('change', function($event) {
+			var classes = $event.target.value;
+			console.log(classes)
+			if(classes == 0){
+				window.location.href= "http://localhost:8080/admin/enrollment"
+			}else{
+				$("#facetable").show();
+				$("#tablemain").hide();
+				$("#pagination").hide();
+			}
+ 			$.ajax({
+				type : 'GET',
+				url : `/api/enrollment/index/search?classID=${classes}`,
+				beforeSend : function() {
+					console.log('before sending')
+				},
+				success : renderToTable,
+				fail : function(error) {
+					console.log('error', error)
+				},
+			}); 
+		}); 
+
+ 		function renderToTable(results) {
+			if (!results.length) {
+				$('#table').html(`<tr><td colspan="5"><b style='text-align: center;color: red'>Not have any items</b></td></tr>`)
+				return;
+			}
+			var block = results.map(enrollment => {
+				
+				return `
+					<tr>
+						<td>${enrollment.traineeID.username}</td>
+						<td>${enrollment.traineeID.name}</td>
+						<td>${enrollment.classID.classID}</td>
+						<td>${enrollment.classID.className}</td>
+						<td class="text-center">
+						<a
+						href="/admin/seeDetails?enrollmentID&traineeID=${enrollment.traineeID.username}&classID=${enrollment.classID.classID}">
+							<button class="btn" >
+								<span class="fa fa-eye"></span>
+							</button>
+					</a> <a
+						href="/admin/edit?enrollmentID&traineeID=${enrollment.traineeID.username}&classID=${enrollment.classID.classID}">
+							<button class="btn">
+								<span class="fa fa-edit"></span>
+							</button>
+					</a> <a href="#myModal1${enrollment.traineeID.username}${enrollment.classID.classID}" data-toggle="modal">
+							<button class="btn">
+								<span class="fa fa-trash"></span>
+							</button>
+					</a>
+					
+						</td>
+					</tr>`;
+			})
+			$('#table').html(block),
+			$('#tablforeign').DataTable({
+				retrieve: true,
+ 	        	"pageLength": 3
+ 	        });
+ 	        
+		}
+	</script>
+</body>
+</html>

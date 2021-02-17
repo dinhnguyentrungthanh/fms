@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Title</title>
+<!-- Required meta tags -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="../../../../../../../css/css.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<!--sweet alert-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script type="text/javascript" src="../../../../../../../css/javascript.js"></script>
+</head>
+<body>
+	<header>
+		<div>
+			<img class="logo" src="../../../../../../../image/r2s.com_.vn_.png" />
+		</div>
+		<br>
+		<div class="menu-grid">
+			<div>
+				<nav style="background-color: darkorange">
+					<ul class="nav nav-tabs">
+						<li class="nav-item"><a class="nav-link" href="#">
+								HOMEPAGE </a></li>
+						<li class="nav-item"><a class="nav-link" href="/Admin/Assignment/indexAssignment/">
+								ASSIGNMENT</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">CLASS</a></li>
+						<li class="nav-item"><a class="nav-link" href="#"> COURSE</a>
+						</li>
+						<li class="nav-item"><a class="nav-link" href="#">
+								ENROLLMENT</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">
+								FEEDBACK</a></li>
+						<li class="nav-item"><a class="nav-link" href="#"> RESULT</a>
+						</li>
+						<li class="nav-item"><a class="nav-link" href="#">
+								QUESTION</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">
+								CONTACT</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div>
+				<nav style="background-color: darkorange">
+					<ul class="nav nav-tabs">
+						<li class="nav-item"><a class="nav-link" href="#">YOURNAME</a>
+						</li>
+						<li class="nav-item"><a class="nav-link" href="#">LOGOUT</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</header>
+	<article style="padding: 15px">
+		<span><h4>Assignment</h4></span><br>
+		<form class="form-inline pull-right" action="#"
+			th:action="@{/Admin/Assignment/indexAssignment/findid/page/1}" method="GET">
+			<div class="form-group">
+				<input type="text" class="form-control" name="keyword" id="keyword"
+					size="50" th:value="${keyword}">
+			</div>
+
+			<button type="submit" class="btn btn-primary">Search</button>
+		</form>
+		<table class="table">
+			<thead>
+				<th>No.</th>
+				<th>Modune Name</th>
+				<th>Class Name</th>
+				<th>Trainer Name</th>
+				<th>Registration Code</th>
+			</thead>
+			<tbody>
+				<tr th:each="ass,iterStar : ${ass}">
+					<td th:text="${iterStar.count}"></td>
+					<td th:text="${ass.module.ModuleName}"></td>
+					<td th:text="${ass.classs.classname}"></td>
+					<td th:text="${ass.trainer.name}"></td>
+					<td th:text="${ass.RegistrationCode}"></td>
+				</tr>
+			</tbody>
+			
+			
+		</table>
+	<ul class="pagination">
+			<li class="page-item"><a class="page-link">Tổng số:
+					[[${totalItems}]]</a></li>
+			<li class="page-item"><a class="page-link"
+				th:if="${currentPage >1}"
+				th:href="@{'/Admin/Assignment/indexAssignment/page/' + ${currentPage - 1}}">prive</a>
+			<li class="page-item"
+				th:each="i: ${#numbers.sequence(1, totalPages)}"
+				th:class="${currentPage== i ? 'page-item active' :'page-item' }"><span>
+					<a class="page-link" th:if="${currentPage != i}"
+					th:href="@{'/Admin/Assignment/indexAssignment/page/' + ${i}}">[[${i}]]</a> <span
+					class="page-link" th:unless="${currentPage != i}">[[${i}]]</span>
+			</span></li>
+			<li class="page-item"><a class="page-link"
+				th:if="${currentPage < totalPages}"
+				th:href="@{'/Admin/Assignment/page/indexAssignment/' + ${currentPage + 1}}">Next</a>
+				<span class="page-link" th:unless="${currentPage < totalPages}">Next</span></li>
+			<li class="page-item"><a class="page-link"
+				th:if="${currentPage < totalPages}"
+				th:href="@{'/Admin/Assignment/page/indexAssignment/' + ${totalPages}}">Last</a> <span
+				class="page-link" th:unless="${currentPage < totalPages}">Last</span></li>
+		</ul> 
+			<div>
+		
+
+
+		</div>
+		<div></div>
+	</article>
+	<footer>
+		<div class="grid">
+			<div>
+				<p>We are ready for challenge</p>
+				<p>vnhung1903@gmail.com</p>
+			</div>
+			<div>
+				<p>Công viên phần mềm quang Trung</p>
+				<p>+84776629411</p>
+			</div>
+			<div>
+				<p>We are always looking for talent</p>
+				<p>vinhndps08838@gmail.com</p>
+			</div>
+			<div></div>
+			<div class="footer-icon">
+				<i class="fa fa-twitter"
+					style="padding: 10px; font-size: 20px; color: white"></i> <i
+					class="fa fa-facebook-f"
+					style="padding: 10px; font-size: 20px; color: white"></i> <i
+					class="fa fa-google-plus"
+					style="padding: 10px; font-size: 20px; color: white"></i>
+			</div>
+		</div>
+	</footer>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>

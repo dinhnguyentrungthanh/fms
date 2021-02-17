@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en " xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../css/css.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	  </head>
+	<style>
+.modal-confirm {
+	color: #636363;
+	width: 400px;
+}
+
+.modal-confirm .modal-content {
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+	text-align: center;
+	font-size: 14px;
+}
+
+.modal-confirm .modal-header {
+	border-bottom: none;
+	position: relative;
+}
+
+.modal-confirm h4 {
+	text-align: center;
+	font-size: 26px;
+	margin: 30px 0 -10px;
+}
+
+.modal-confirm .close {
+	position: absolute;
+	top: -5px;
+	right: -2px;
+}
+
+.modal-confirm .modal-body {
+	color: #999;
+}
+
+.modal-confirm .modal-footer {
+	border: none;
+	text-align: center;
+	border-radius: 5px;
+	font-size: 13px;
+	padding: 30px 15px 25px;
+}
+
+.modal-confirm .icon-box {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 50%;
+	z-index: 9;
+	text-align: center;
+	border: 3px solid #f15e5e;
+}
+
+.modal-confirm .icon-box i {
+	color: #f15e5e;
+	font-size: 46px;
+	display: inline-block;
+	margin-top: 13px;
+}
+
+.modal-confirm .btn, .modal-confirm .btn:active {
+	color: #fff;
+	border-radius: 4px;
+	background: blue;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	min-width: 120px;
+	border: none;
+	min-height: 40px;
+	border-radius: 3px;
+	margin: 0 5px;
+	margin-left: 90px;
+}
+
+.modal-confirm .btnn, .modal-confirm .btn:active {
+	color: #fff;
+	border-radius: 4px;
+	background: blue;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	min-width: 120px;
+	border: none;
+	min-height: 40px;
+	border-radius: 3px;
+	margin: 0 5px;
+}
+
+.modal-confirm .btn-secondary {
+	background: #c1c1c1;
+}
+
+.modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus
+	{
+	background: #a8a8a8;
+}
+
+.modal-confirm .btn-danger {
+	background: #f15e5e;
+}
+
+.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+	background: #ee3535;
+}
+
+.trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
+}
+
+.modal-confirmm {
+	color: #636363;
+	width: 400px;
+}
+
+.modal-confirmm .modal-content {
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+	text-align: center;
+	font-size: 14px;
+}
+
+.modal-confirmm .modal-header {
+	border-bottom: none;
+	position: relative;
+}
+
+.modal-confirmm h4 {
+	text-align: center;
+	font-size: 26px;
+	margin: 30px 0 -10px;
+}
+
+.modal-confirmm .close {
+	position: absolute;
+	top: -5px;
+	right: -2px;
+}
+
+.modal-confirmm .modal-body {
+	color: #999;
+}
+
+.modal-confirmm .modal-footerr {
+	border: none;
+	text-align: center;		
+	border-radius: 5px;
+	font-size: 13px;
+	padding: 30px 15px 2px;
+	margin-left: 85px;
+}
+
+.modal-confirmm .icon-boxx {
+	width: 80px;
+	height: 80px;
+	margin: 0 auto;
+	border-radius: 50%;
+	z-index: 9;
+	text-align: center;
+	border: 3px solid #82ce34;
+}
+
+.modal-confirmm .icon-boxx i {
+	color: #82ce34;
+	font-size: 46px;
+	display: inline-block;
+	margin-top: 13px;
+}
+
+.modal-confirmm .btn, .modal-confirmm .btn:active {
+	color: #fff;
+	border-radius: 4px;
+	background:blue;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	min-width: 120px;
+	border: none;
+	min-height: 40px;
+	border-radius: 3px;
+	margin: 0 5px;
+}
+
+.modal-confirmm .btn-secondary {
+	background: #c1c1c1;
+}
+.modal-confirmm .btn-secondary:hover, .modal-confirm .btn-secondary:focus {
+	background: #a8a8a8;
+}
+.modal-confirmm .btn-danger {
+	background: #f15e5e;
+}
+.modal-confirmm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+	background: #ee3535;
+}
+.trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
+}
+
+.dataTables_info {
+	display: none;
+}
+
+.dataTables_length {
+	display: none;
+}
+</style>
+
+
+<body>
+	 <th:block th:include="/common/_header"></th:block>    
+
+    <article class="container" style="padding: 15px">
+        <span>
+            <h4 style="text-align: center;"><b>LIST FEEDBACK</b></h4>
+        </span><br>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                	<th>Feedback ID</th>
+	                <th>Feedback Title</th>
+	                <th>Class ID</th>
+	                <th>Class Name</th>
+	                <th>Module ID</th>
+	                <th>Module Name</th>
+	                <th>End Time Feedback</th>
+	                <th>Status</th>
+	                <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<tr th:each="module : ${modules}">
+            		<td th:text="${module[0]}"></td>
+            		<th th:text="${module[1]}"></th>
+	                <th th:text="${module[2]}"></th>
+            		<td th:text="${module[3]}"></td>
+            		<td th:text="${module[4]}"></td>
+            		<td th:text="${module[5]}"></td>
+            		<td th:text="${module[6]}"></td>
+            		<td><b>InComplete</b></td>
+            		<td>
+	            		<a th:id="${module[0]}" style="color:blue" th:href="@{/traineefb?id={id}(id=${module[0]})}">Do Feedback
+	            		</a>
+            		</td>
+            	</tr>
+            </tbody>
+        </table>
+    </article>
+    <!-- Modal -->
+	<div id="myModall" class="modal fade">
+		<div class="modal-dialog modal-confirmm">
+			<div class="modal-content">
+				<div class="modal-header flex-column">
+					<div class="icon-boxx">
+						<i class="material-icons">&#xE876;</i>
+					</div>
+					<h4 class="modal-title w-100"
+						th:text="#{message.submitSS.title}"></h4>
+					<div class="modal-footerr justify-content-center">
+						<a href="/trainee/dashboard" class="btn btn-success btn-block"
+							th:text="#{message.savequestion.footer}"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <th:block th:include="/common/_footer"></th:block>    
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css"
+		href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" th:if="${successok}">
+		$('#myModall').modal('show')
+	</script>
+    <script type="text/javascript">
+		var traineeID= document.querySelector("#traineeID").innerText;	
+			$("#join").click(function(){
+				var registration_code="";	
+				registration_code= document.querySelector("#code").value;
+				var apiUrl = 'http://localhost:8080/api/enrollment/'+registration_code;
+				if (registration_code=="") {
+                    $('#codeError').text('[[#{message.join.notexist}]]');
+                    $("#exampleModal").modal();
+                    $("#myModal").modal('hide');
+                }
+	              $.get(apiUrl, function(data, status){
+	              console.log(status,data);
+	                if (data.registrationCode!=null) {
+	                    checkJoined(data.registrationCode,data.classID.classID);
+	                }
+	                else if(data.length==0){
+	                	$('#codeError').text('[[#{message.join.notexist}]]');
+	                	$("#exampleModal").modal();
+                        $("#myModal").modal('hide');
+	                }
+    			});
+            });
+    	function checkJoined(registration_code,classID){
+    		var apiUrl = 'http://localhost:8080/api/enrollment/check_joined?registration_code='+registration_code+'&traineeID='+traineeID;
+            $.get(apiUrl, function(data, status){
+                
+                if (data.className!=null) {
+                    $('#codeError').text('[[#{message.join.fail}]]');
+                    $("#exampleModal").modal();
+                    $("#myModal").modal('hide');
+                }
+                else{
+                    join(classID);
+                }
+            });
+    	}	
+	function join(classID){
+		    var apiUrl = 'http://localhost:8080/api/enrollment/join?classID='+classID+'&traineeID='+traineeID;
+            $.post(apiUrl, function(data, status){
+                
+                if (status=='success') {
+                    $('#codeError').text('[[#{message.join.success}]]');
+                    $("#exampleModal").modal();
+                    $("#myModal").modal('hide');
+                }
+            });
+	}
+</script>       
+</body>
+
+</html>

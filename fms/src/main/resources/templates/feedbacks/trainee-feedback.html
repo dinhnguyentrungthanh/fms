@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en " xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../css/css.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--sweet alert-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script type="text/javascript" src="../css/javascript.js"></script>
+
+  	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	  </head>
+	<style>
+		.modal-confirm {
+			color: #636363;
+			width: 400px;
+		}
+		
+		.modal-confirm .modal-content {
+			padding: 20px;
+			border-radius: 5px;
+			border: none;
+			text-align: center;
+			font-size: 14px;
+		}
+		
+		.modal-confirm .modal-header {
+			border-bottom: none;
+			position: relative;
+		}
+		
+		.modal-confirm h4 {
+			text-align: center;
+			font-size: 26px;
+			margin: 30px 0 -10px;
+		}
+		
+		.modal-confirm .close {
+			position: absolute;
+			top: -5px;
+			right: -2px;
+		}
+		
+		.modal-confirm .modal-body {
+			color: #999;
+		}
+		
+		.modal-confirm .modal-footer {
+			border: none;
+			text-align: center;
+			border-radius: 5px;
+			font-size: 13px;
+			padding: 30px 15px 25px;
+		}
+		
+		.modal-confirm .icon-box {
+			width: 80px;
+			height: 80px;
+			margin: 0 auto;
+			border-radius: 50%;
+			z-index: 9;
+			text-align: center;
+			border: 3px solid #f15e5e;
+		}
+		
+		.modal-confirm .icon-box i {
+			color: #f15e5e;
+			font-size: 46px;
+			display: inline-block;
+			margin-top: 13px;
+		}
+		
+		.modal-confirm .btn, .modal-confirm .btn:active {
+			color: #fff;
+			border-radius: 4px;
+			background: blue;
+			text-decoration: none;
+			transition: all 0.4s;
+			line-height: normal;
+			min-width: 120px;
+			border: none;
+			min-height: 40px;
+			border-radius: 3px;
+			margin: 0 5px;
+			margin-left: 90px;
+		}
+		
+		.modal-confirm .btnn, .modal-confirm .btn:active {
+			color: #fff;
+			border-radius: 4px;
+			background: blue;
+			text-decoration: none;
+			transition: all 0.4s;
+			line-height: normal;
+			min-width: 120px;
+			border: none;
+			min-height: 40px;
+			border-radius: 3px;
+			margin: 0 5px;
+		}
+		
+		.modal-confirm .btn-secondary {
+			background: #c1c1c1;
+		}
+		
+		.modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus
+			{
+			background: #a8a8a8;
+		}
+		
+		.modal-confirm .btn-danger {
+			background: #f15e5e;
+		}
+		
+		.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+			background: #ee3535;
+		}
+		
+		.trigger-btn {
+			display: inline-block;
+			margin: 100px auto;
+		}
+		
+		.modal-confirm .modal-footerr {
+			border: none;
+			text-align: center;
+			border-radius: 5px;
+			font-size: 13px;
+			padding: 15px 15px 2px;
+		}
+		
+		.modal-confirm .icon-boxx {
+			width: 80px;
+			height: 80px;
+			margin: 0 auto;
+			border-radius: 50%;
+			z-index: 9;
+			text-align: center;
+			border: 3px solid #82ce34;
+		}
+		
+		.modal-confirm .icon-boxx i {
+			color: #82ce34;
+			font-size: 46px;
+			display: inline-block;
+			margin-top: 13px;;
+		}
+		
+		.dataTables_info {
+			display: none;
+		}
+		
+		.dataTables_length {
+			display: none;
+		}
+	</style>
+  <body>
+  
+
+<th:block th:include="/common/_header"></th:block>    
+
+<article style="padding: 15px">
+<div style="margin: auto;width: 70%">
+    <span style="text-align: center;"><h4>TRAINING COURSE FEEDBACK</h4></span><br>
+    <div>
+        <div>
+            <span><b>Module: </b><b style="color: red">Module01</b></span><br>     
+            <span><b>Class: </b><b  style="color: red">Class01</b></span><br>  
+        </div>
+        <div style="margin-bottom: 1in">
+            <img src="" width="100" height="100" style="float: right;">            
+            <span style="text-align: center;"><h5>TOPIC LESSON EVALUATION</h5></span><br>
+        </div>
+        <form th:object="${answer}" th:action="@{/submit_FB}" action="#"
+			method="post" id="form">
+			<input type="hidden" th:value="1" name="traloi1">  
+			<input type="hidden" th:value="1" name="classID">  
+            <input type="hidden" th:value="1" name="moduleID"> 
+            <input type="hidden" th:value="5" name="questionID"> 
+            <input type="hidden" th:value="Trainee01" name="traineeID">   
+             
+            
+            <div>
+                <span style="text-align: left;"><h6>A.GENARAL COMMENT</h6></span><br>
+                <textarea id="comment" name="comment" cols="70"></textarea>
+                <p id="warningComment" class="text-danger"></p>
+            </div>
+            <div>
+                <span style="text-align: left;"><h6>B.DETAIL EVALUATION</h6></span><br>
+                <span><h4>
+    <b style="text-align:center" th:each="topic : ${topics}" th:text="${topic.topicID}+'. '+${topic.topicName}"
+										th:value="${topic.topicID}" th:if="${topic.topicID <= 1}"></b>
+	</h4></span><br>
+	
+        <ul th:each="feedbackQuestion : ${feedbackQuestions}"
+        th:if="${feedbackQuestion.questionID.topic.topicID <= 1 && feedbackQuestion.feedbackID.feedbackID == feedback.feedbackID}">
+            <li 
+            	th:text="${feedbackQuestion.questionID.questionID}+'. '+${feedbackQuestion.questionID.questionContent}"
+            	th:value="${feedbackQuestion.questionID.questionID}" name="questionID"
+				>
+            </li>
+            <div class="row" style="padding:1em">
+            
+                        <div name="traloi1" class=" form-inline"  style="margin-right: 1em">
+                            <input type="radio" checked="true" id = "ischeck"
+                            th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}">
+                            <span>Strongly Disagree</span><br>
+                            <span id="warningbutton"></span><br>
+                        </div>  
+
+                        <div name="traloi2" class=" form-inline" style="margin-right: 1em">
+                            <input type="radio"  id = "ischeck" th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}" class=" form-control">
+                            <span>Disagree</span><br>
+                        </div> 
+
+                        <div name="traloi3" class=" form-inline" style="margin-right: 1em">
+                            <input type="radio" id = "ischeck" th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}" class=" form-control">
+                            <span>UnDecided</span><br>
+                        </div> 
+
+                        <div name="traloi4" class=" form-inline" style="margin-right: 1em">
+                            <input type="radio" id = "ischeck" th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}" class=" form-control">
+                            <span>Agree</span><br>
+                        </div>   
+                        
+                        <div name="traloi5" class=" form-inline" style="margin-right: 1em">
+                            <input type="radio" id = "ischeck" th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}" class=" form-control">
+                            <span>Strong Agree</span><br>
+                        </div>         
+                    </div>
+        </ul>
+        
+    <span><h4>
+    	<b th:each="topic : ${topics}" th:text="${topic.topicID}+'. '+${topic.topicName}"
+										th:value="${topic.topicID}"
+										th:if="${topic.topicID <= 2 && topic.topicID > 1}"></b>
+    	</h4></span><br>
+    
+        <ul th:each="feedbackQuestion : ${feedbackQuestions}" 
+        th:if="${feedbackQuestion.questionID.topic.topicID > 1 && feedbackQuestion.questionID.topic.topicID <= 2 && feedbackQuestion.feedbackID.feedbackID == feedback.feedbackID}">
+            <li 
+            	th:text="${feedbackQuestion.questionID.questionID}+'. '+${feedbackQuestion.questionID.questionContent}"
+            	th:value="${feedbackQuestion.questionID.questionID}"
+				>
+            </li>
+            <div class="row" style="padding:1em">
+                        <div name="traloi1" class=" form-inline"  style="margin-right: 1em">
+                            <input type="radio" checked="true" id = "ischeck" th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}">
+                            <span>Strongly Disagree</span><br>
+                        </div>  
+
+                        <div name="traloi2" class=" form-inline" style="margin-right: 1em">
+                            <input type="radio" id = "ischeck" th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}" class=" form-control">
+                            <span>Disagree</span><br>
+                        </div> 
+
+                        <div name="traloi3" class=" form-inline" style="margin-right: 1em">
+                            <input type="radio" id = "ischeck" th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}"class=" form-control">
+                            <span>UnDecided</span><br>
+                        </div> 
+
+                        <div name="traloi4" class=" form-inline" style="margin-right: 1em">
+                            <input type="radio" id = "ischeck" th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}" class=" form-control">
+                            <span>Agree</span><br>
+                        </div>   
+                        
+                        <div name="traloi5" class=" form-inline" style="margin-right: 1em">
+                            <input type="radio" id = "ischeck" th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}" class=" form-control">
+                            <span>Strong Agree</span><br>
+                        </div>         
+                    </div>
+        </ul>
+    <span><h4>
+		<b style="text-align:center" th:each="topic : ${topics}" th:text="${topic.topicID}+'. '+${topic.topicName}"
+										th:value="${topic.topicID}"
+										th:if="${topic.topicID <= 3 && topic.topicID > 2}"></b>
+		</h4></span><br>
+        <ul th:each="feedbackQuestion : ${feedbackQuestions}" 
+        th:if="${feedbackQuestion.questionID.topic.topicID > 2 && feedbackQuestion.questionID.topic.topicID <=3 && feedbackQuestion.feedbackID.feedbackID == feedback.feedbackID}">
+            <li 
+            	th:text="${feedbackQuestion.questionID.questionID}+'. '+${feedbackQuestion.questionID.questionContent}"
+            	th:value="${feedbackQuestion.questionID.questionID}"
+				>
+            </li>
+            <div class="row" style="padding:1em">
+                        <div name="traloi1" class=" form-inline"  style="margin-right: 1em">
+                            <input type="radio" checked="true" id = "ischeck" th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}">
+                            <span>Strongly Disagree</span><br>
+                        </div>  
+
+                        <div name="traloi2" class=" form-inline" style="margin-right: 1em">
+                            <input type="radio" id = "ischeck" th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}"class=" form-control">
+                            <span>Disagree</span><br>
+                        </div> 
+
+                        <div name="traloi3" class=" form-inline" style="margin-right: 1em">
+                            <input type="radio" id = "ischeck" th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}" class=" form-control">
+                            <span>UnDecided</span><br>
+                        </div> 
+
+                        <div name="traloi4" class=" form-inline" style="margin-right: 1em">
+                            <input type="radio" id = "ischeck" th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}" class=" form-control">
+                            <span>Agree</span><br>
+                        </div>   
+                        
+                        <div name="traloi5" class=" form-inline" style="margin-right: 1em">
+                            <input type="radio" id = "ischeck" th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}" class=" form-control">
+                            <span>Strong Agree</span><br>
+                        </div>         
+                    </div>
+        </ul>
+    <span><h4>
+	<b style="text-align:center" th:each="topic : ${topics}" th:text="${topic.topicID}+'. '+${topic.topicName}"
+										th:value="${topic.topicID}"
+										th:if="${topic.topicID <= 4 && topic.topicID > 3}"></b>
+	</h4></span><br>
+        <ul th:each="feedbackQuestion : ${feedbackQuestions}" 
+        th:if="${feedbackQuestion.questionID.topic.topicID > 3 && feedbackQuestion.feedbackID.feedbackID == feedback.feedbackID}">
+            <li 
+            	th:text="${feedbackQuestion.questionID.questionID}+'. '+${feedbackQuestion.questionID.questionContent}"
+            	th:value="${feedbackQuestion.questionID.questionID}"
+				>
+            </li>
+            <div class="row" style="padding:1em">
+                        <div name="traloi1" class=" form-inline"  style="margin-right: 1em">
+                            <input type="radio" checked="true" id = "ischeck"
+                            th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}" >
+                            <span>Strongly Disagree</span><br>
+                        </div>  
+
+                        <div name="traloi2" class=" form-inline" style="margin-right: 1em">
+                            <input type="radio" id = "ischeck"
+                            th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}" >
+                            <span>Disagree</span><br>
+                        </div> 
+
+                        <div name="traloi3" class=" form-inline" style="margin-right: 1em">
+                            <input type="radio" id = "ischeck"
+                            th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}" >
+                            <span>UnDecided</span><br>
+                        </div> 
+
+                        <div name="traloi4" class=" form-inline" style="margin-right: 1em">
+                            <input type="radio" id = "ischeck"
+                            th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}" >
+                            <span>Agree</span><br>
+                        </div>   
+                        
+                        <div name="traloi5" class=" form-inline" style="margin-right: 1em">
+                            <input type="radio" id = "ischeck"
+                            th:name="'feelback' + ${feedbackQuestion.questionID.topic.topicID} + ${feedbackQuestion.questionID}" >
+                            <span>Strong Agree</span><br>
+                        </div>         
+                    </div>
+        </ul>              
+            </div> 
+    <button type="submit" id="btn1" class="btn btn-default" style="background-color: darkorange;color: white;font-size: 19px">Submit
+    </button>                       
+        </form>        
+    </div>
+</div>
+</article>
+<footer>
+    <div class="grid">
+        <div>
+            <p>We are ready for challenge</p>
+            <p>vnhung1903@gmail.com</p>
+        </div>
+        <div>
+            <p>Công viên phần mềm quang Trung</p>
+            <p>+84776629411</p>
+        </div>
+        <div>
+            <p>We are always looking for talent</p>
+            <p>vinhndps08838@gmail.com</p>
+        </div>
+        <div></div>
+        <div class="footer-icon">
+            <i class="fa fa-twitter" style="padding:10px;font-size:20px;color:white"></i>
+            <i class="fa fa-facebook-f" style="padding:10px;font-size:20px;color:white"></i>
+            <i class="fa fa-google-plus" style="padding:10px;font-size:20px;color:white"></i>
+        </div>
+    </div>
+</footer>
+<div id="myModal" class="modal fade">
+			<div class="modal-dialog modal-confirm">
+				<div class="modal-content">
+					<div class="modal-header flex-column">
+						<div class="icon-box">
+							<i class="material-icons">&#xE876;</i>
+						</div>
+						<h4 class="modal-title w-100" th:text="#{message.savemodule.title}"></h4>
+						<div class="modal-footer justify-content-center">
+							<a href="/admin/module_index" class="btn btn-success btn-block" th:text="#{message.savemodule.footer}"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+  
+  <script type="text/javascript" th:if="${successok}">
+		$('#myModal').modal('show')
+	</script>
+	
+  	<script type="text/javascript">
+  		$('form').on('submit', function () {
+  			var comment = $('#comment').val();
+  			//var checkbox = $('#ischeck').val();
+  			var checkComment = false;
+
+  			
+  			if (comment.trim().length === 0) {
+  				checkComment = false;
+  				//$('#warningComment').html('Không được để trống');
+  				alert("không đươc để trống comment");
+  			} else {
+  				checkComment = true;
+  				$('#warningComment').html('');
+  			}
+  			
+  			
+
+  			
+  			if (checkComment ) {
+  				return true;
+  			} else {
+  				return false;
+  			} 
+		
+  			
+  			/* return false; */
+  			
+  		})
+  	</script>
+  </body>
+</html>
+
+
+

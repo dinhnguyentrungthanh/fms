@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Review Edit Feedback</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../css/css.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--sweet alert-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script type="text/javascript" src="../css/javascript.js"></script>
+  </head>
+  <body>
+
+<th:block th:include="/common/_header"></th:block>
+
+<article style="padding: 15px;;">
+<span style="text-align: center;"><h4>REVIEW FEEDBACK</h4></span><br>
+<form th:object="${feedback}" action="#" method="post" id="form">
+    <div style="margin-left: 450px;width: 60%">
+    
+    <span>
+    <b>Feedback Title: </b>
+    	<b><input style="width: 20em; color: red; border: none; font-weight: bold;" type="text" th:field="*{title}" /></b>
+    </span><br>
+    <span>
+    <b>Admin: </b>
+    	<b><input style="width: 20em; color: red; border: none; font-weight: bold;" type="text" th:field="*{admins}" /></b>
+    </span>
+
+    <span><h4>
+    <b style="text-align:center" th:each="topic : ${topics}" th:text="${topic.topicName}"
+										th:value="${topic.topicID}" th:if="${topic.topicID <= 1}"></b>
+	</h4></span><br>
+	
+        <ul>
+            <li th:each="feedbackQuestion : ${feedbackQuestions}" 
+            	th:text="${feedbackQuestion.questionID.questionContent}"
+            	th:value="${feedbackQuestion.questionID.questionID}"
+				th:if="${feedbackQuestion.questionID.topic.topicID <= 1 && feedbackQuestion.feedbackID.feedbackID == feedback.feedbackID}">
+            </li>
+        </ul>
+        
+    <span><h4>
+    	<b th:each="topic : ${topics}" th:text="${topic.topicName}"
+										th:value="${topic.topicID}"
+										th:if="${topic.topicID <= 2 && topic.topicID > 1}"></b>
+    	</h4></span><br>
+    
+        <ul>
+            <li th:each="feedbackQuestion : ${feedbackQuestions}" 
+            	th:text="${feedbackQuestion.questionID.questionContent}"
+				th:if="${feedbackQuestion.questionID.topic.topicID > 1 && feedbackQuestion.questionID.topic.topicID <= 2 && feedbackQuestion.feedbackID.feedbackID == feedback.feedbackID}">
+            </li>
+        </ul>
+    <span><h4>
+		<b style="text-align:center" th:each="topic : ${topics}" th:text="${topic.topicName}"
+										th:value="${topic.topicID}"
+										th:if="${topic.topicID <= 3 && topic.topicID > 2}"></b>
+		</h4></span><br>
+        <ul>
+            <li th:each="feedbackQuestion : ${feedbackQuestions}" 
+            	th:text="${feedbackQuestion.questionID.questionContent}"
+				th:if="${feedbackQuestion.questionID.topic.topicID > 2 && feedbackQuestion.questionID.topic.topicID <=3 && feedbackQuestion.feedbackID.feedbackID == feedback.feedbackID}">
+            </li>
+        </ul>
+    <span><h4>
+	<b style="text-align:center" th:each="topic : ${topics}" th:text="${topic.topicName}"
+										th:value="${topic.topicID}"
+										th:if="${topic.topicID <= 4 && topic.topicID > 3}"></b>
+	</h4></span><br>
+        <ul>
+            <li th:each="feedbackQuestion : ${feedbackQuestions}" 
+            	th:text="${feedbackQuestion.questionID.questionContent}"
+				th:if="${feedbackQuestion.questionID.topic.topicID > 3 && feedbackQuestion.feedbackID.feedbackID == feedback.feedbackID}">
+            </li>
+        </ul>  
+        <input type="hidden" th:value="${feedback.feedbackID}" name="feedbackID"><br>
+    <a href="/admin/feedbacks" class="btn btn-default" style="background-color: darkorange;color: white;font-size: 19px; margin-right:10px">Back
+    <a th:href="@{/edit-fb?id={id}(id=${feedback.feedbackID})}" class="btn btn-default" style="background-color: darkorange;color: white;font-size: 19px">Edit
+    
+    </a> 
+    </div>     
+    </form>          
+</article>
+<footer>
+    <div class="grid">
+        <div>
+            <p>We are ready for challenge</p>
+            <p>vnhung1903@gmail.com</p>
+        </div>
+        <div>
+            <p>Công viên phần mềm quang Trung</p>
+            <p>+84776629411</p>
+        </div>
+        <div>
+            <p>We are always looking for talent</p>
+            <p>vinhndps08838@gmail.com</p>
+        </div>
+        <div></div>
+        <div class="footer-icon">
+            <i class="fa fa-twitter" style="padding:10px;font-size:20px;color:white"></i>
+            <i class="fa fa-facebook-f" style="padding:10px;font-size:20px;color:white"></i>
+            <i class="fa fa-google-plus" style="padding:10px;font-size:20px;color:white"></i>
+        </div>
+    </div>
+</footer>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+
